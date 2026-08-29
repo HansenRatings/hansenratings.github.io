@@ -895,6 +895,32 @@ mso-bidi-theme-font:minor-bidi;}
  <o:shapelayout v:ext="edit">
   <o:idmap v:ext="edit" data="2"/>
  </o:shapelayout></xml><![endif]-->
+
+<style>
+/* hansen sticky chrome */
+/* the table is the only thing that scrolls; everything else stays put */
+html, body { height: 100%; margin: 0; }
+body { overflow: hidden !important; }
+.WordSection1 { height: 100vh; margin-top: 0 !important; margin-bottom: 0 !important;
+                display: flex; flex-direction: column; box-sizing: border-box; }
+.hr-banner  { flex: 0 0 auto; }
+.hr-support { flex: 0 0 auto; margin: 0 !important; }
+.responsive-container { flex: 1 1 auto; min-height: 0; height: auto !important;
+                        overflow: hidden !important; }
+.reactable-container { height: 100% !important; overflow: hidden !important; }
+#htmlwidget_container { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.reactable-container .reactable { flex: 1 1 auto; min-height: 0; height: auto !important; }
+.reactable-container .rt-table { height: 100% !important; max-height: none !important;
+                                 overflow: auto !important; }
+/* column headers stay put while the rows scroll beneath them */
+.reactable-container .rt-thead { position: sticky !important; top: 0 !important;
+                                 z-index: 10 !important; background: #ffffff !important;
+                                 box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2); }
+.reactable-container .rt-thead .rt-th { background: #ffffff !important; }
+/* frozen left-hand columns must sit below the header, above the rows */
+.reactable-container .rt-thead .rt-th.rt-sticky { z-index: 12 !important; }
+.reactable-container .rt-tbody .rt-td.rt-sticky { z-index: 1 !important; }
+</style>
 </head>
 
 <body lang=EN-US link="#0563C1" vlink="#954F72" style="tab-interval:.5in;
@@ -902,13 +928,13 @@ word-wrap:break-word">
 
 <div class=WordSection1>
 
-<div style="text-align: center; background: #323E4F; padding: 10px;">
+<div class="hr-banner" style="text-align: center; background: #323E4F; padding: 10px;">
 <a href="https://hansenratings.github.io/" style="text-decoration: none;">
 <img src="test%20page_files/image002.gif" alt="Hansen Ratings Logo" style="max-width: 100%; height: auto; max-height: 96px;">
 </a>
 </div>
 
-<p class=MsoNormal align=center style="text-align:center;line-height:115%;
+<p class="MsoNormal hr-support" align=center style="text-align:center;line-height:115%;
 background:#ED7D31;mso-background-themecolor:accent2"><u><span
 style="font-size:20.0pt;line-height:115%;font-family:Raleway;color:#222A35;
 mso-themecolor:text2;mso-themeshade:128;mso-style-textfill-fill-color:#222A35;
