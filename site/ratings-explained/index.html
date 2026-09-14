@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ratings Explanation · Hansen Ratings</title>
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/Raleway-Regular.ttf"  as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-Bold.ttf"     as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+
+</head>
+<body>
+<header class="hr-top">
+  <a class="hr-brand" href="/"><b>Hansen</b>Ratings</a>
+  <input type="checkbox" id="hr-burger" class="hr-burger" hidden>
+  <label for="hr-burger" class="hr-burger-btn" aria-label="Menu"><span></span></label>
+  <nav class="hr-nav" aria-label="Site"><details class="hr-menu"><summary>Ratings</summary><ul><li><a href="/ratings/predictive/2026/">Predictive Ratings</a></li><li><a href="/ratings/resume/2026/">Résumé Rankings</a></li><li><a href="/ratings/schedule-strength/2026/">Schedule Strength</a></li><li><a href="/ratings/coaching/2026/">Coaching Grades</a></li><li><a href="https://d3datacast.com/npi/fb/" target="_blank" rel="noopener">NPI (D3Datacast)</a></li></ul></details><details class="hr-menu"><summary>Projections</summary><ul><li><a href="/projections/2026/">Game Projections</a></li><li><a href="/simulation/2026/">Season Simulation</a></li><li><a href="/simulation/2026/scenarios/">Season Scenarios</a></li></ul></details><details class="hr-menu"><summary>Leaderboards</summary><ul><li><a href="/leaderboards/2026/passing/">Passing</a></li><li><a href="/leaderboards/2026/receiving/">Receiving</a></li><li><a href="/leaderboards/2026/rushing/">Rushing</a></li><li><a href="/leaderboards/2026/blocking/">Blocking</a></li><li><a href="/leaderboards/2026/defense/">Defense</a></li><li><a href="/leaderboards/2026/returns/">Returns</a></li><li><a href="/leaderboards/2026/punting/">Punting</a></li><li><a href="/leaderboards/2026/kickoffs/">Kickoffs</a></li><li><a href="/leaderboards/2026/place-kicking/">Place Kicking</a></li></ul></details><details class="hr-menu"><summary>Awards</summary><ul><li><a href="/awards/2026/team-of-the-week/">Team of the Week</a></li><li><a href="/awards/2025/">All-Americans</a></li><li><a href="/awards/2025/region-1/">Region 1</a></li><li><a href="/awards/2025/region-2/">Region 2</a></li><li><a href="/awards/2025/region-3/">Region 3</a></li><li><a href="/awards/2025/region-4/">Region 4</a></li><li><a href="/awards/2025/region-5/">Region 5</a></li><li><a href="/awards/2025/region-6/">Region 6</a></li></ul></details><details class="hr-menu"><summary>Preseason</summary><ul><li><a href="/previews/2026/">Conference Previews</a></li><li><a href="/returning-production/2026/">Returning Production</a></li></ul></details><details class="hr-menu hr-menu-active"><summary>About</summary><ul><li><a href="/ratings-explained/">Ratings Explanation</a></li><li><a href="/glossary/">Glossary</a></li></ul></details><a class="hr-support" href="https://buymeacoffee.com/HansenRatings" target="_blank" rel="noopener">Support</a></nav>
+</header>
+<div class="hr-page">
+  <div class="hr-title">
+    <h1>Ratings Explanation</h1>
+    
+    
+  </div>
+  <main class="hr-main">
+<div class="hr-scroll"><article class="hr-prose"><h2>What is my model?</h2>
+<p>My <a href="https://medium.com/ro-baseball/primer-the-difference-between-retrodictive-and-predictive-statistics-b798137a65e0" target="_blank" rel="noopener">predictive rating model</a> has gone through so many iterations and tweaks over the years that it’s difficult to know where to start in explaining what goes into it. My original inspiration was an offseason project from when I was a GA at UW-Platteville after I discovered Ken Pomeroy’s basketball ratings. I recreated <a href="https://kenpom.com/blog/ratings-explanation/" target="_blank" rel="noopener">KenPom's rankings</a> which at that time were essentially just recency-weighted, <a href="https://www.footballperspective.com/data-dump-schedule-adjusted-pythagorean-ratings-1970-2012/" target="_blank" rel="noopener">opponent-adjusted Pythagorean win percentage</a><a href="#_ftn1" id="_ftnref1">[1]</a> for DIII football. The goal was simple: to predict the scoring margin of future games as accurately as possible.</p>
+<p>After calculating a couple seasons-worth of data, and then posting in-season ratings into the void on a blogspot site for a season, I came to a couple realizations:</p>
+<p class="hr-li hr-li1"><span class="hr-num">1.</span>Since Pythagorean win percentage is essentially a team's ratio of offensive points scored to points scored and points allowed, teams with great defenses were getting over-rated. In most leagues, sports, and competition levels, this wouldn’t be an issue, because every team allows a decent number of points. In DIII football though, it's not uncommon for a handful of teams each year to average single-digit points allowed over an entire season.</p>
+<p class="hr-li hr-li1"><span class="hr-num">2.</span>The KenPom method of adjusting for opponents, <i>AdjEff = ActualEff + OpponentsEff - AverageEff</i>, iterated until the ratings come to balance, was severely <a href="https://skepticalsports.com/easy-nfl-predictions-the-skynet-way/" target="_blank" rel="noopener">over-fitting</a>, which hurt predictiveness. The first season for which I calculated ratings using this method was 2013, and I think the whole ASC was ranked in my top 25. There are not enough games linking teams together in DIII football to opponent-adjust the way most sports do.</p>
+<p>Because of these realizations, my model experienced its first major overhaul. Instead of Pythagorean win percentage, I switched to scoring margin for my main efficiency metric. And then instead of iterating opponent adjustments repeatedly until they stabilized, I switched to a <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian updating</a> model, with <a href="https://fivethirtyeight.com/methodology/how-our-nfl-predictions-work/" target="_blank" rel="noopener">FiveThirtyEight's Elo</a> ratings as my inspiration. The catch was that Elo only gives an overall team rating, my original ratings had separate offensive and defensive ratings, and I didn't want to switch to a model that gave me less granular information, so I had to create my own original ranking system<a href="#_ftn2" id="_ftnref2">[2]</a>.</p>
+<p>In 2024 I decided to incorporate Elo ratings into my model as well, utilizing two different Elo ratings for each team. The first Elo rating is the <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">traditional Elo</a> that does not consider margin of victory. The second Elo rating, which I call Elo+, is a blatant copy FiveThirtyEight's model, but without the quarterback adjustment.</p>
+<p>Here's the bare bones explanation for how my model works:</p>
+<p class="hr-li hr-li1"><span class="hr-num">1.</span>Create preseason ratings for each team's offense (<i>AdjO</i>) &amp; defense (<i>AdjD</i>) based on</p>
+<p class="hr-li hr-li2"><span class="hr-num">a.</span>Recent team success,</p>
+<p class="hr-li hr-li2"><span class="hr-num">b.</span>Returning production, and</p>
+<p class="hr-li hr-li2"><span class="hr-num">c.</span>Coaching changes.</p>
+<p class="hr-li hr-li1"><span class="hr-num">2.</span>Calculate overall ratings from <i>AdjO</i>, <i>AdjD</i>, <i>AdjEff</i>, <i>Elo</i>, and <i>Elo+</i>.</p>
+<p class="hr-li hr-li1"><span class="hr-num">3.</span>Calculate game predictions using <i>AdjEff</i>, <i>Elo</i>, and <i>Elo+</i>.</p>
+<p class="hr-li hr-li1"><span class="hr-num">4.</span>After games are played, adjust team ratings proportional to how much they over- or under-performed their expectation.</p>
+<p class="hr-li hr-li1"><span class="hr-num">5.</span>Repeat weekly.</p>
+<h2>Preseason Ratings</h2>
+<p>Preseason ratings are the lifeblood of my model. Since I'm doing what I can to avoid overfitting within a season, having accurate priors is extremely important. My preseason ratings are calculated from a five-year weighted average of each team's end-of-season ratings, with adjustments for returning production and coaching changes.</p>
+<p>I don't have returning production or player-level statistics for seasons before 2009, so there are no returning production adjustments for those seasons, and the linear weights for the 5-year average are different. I've tried adding some <a href="https://optimumsportsperformance.com/blog/regression-to-the-mean-in-sports/" target="_blank" rel="noopener">regression to the mean</a> every time I've tweaked my preseason weights, and it always makes predictions less accurate, so I don't use it. I have a constant I add to offensive and defensive ratings to account for the general increase in scoring each year and to balance the overall national average rating.</p>
+<div class="hr-tablewrap"><table class="hr-table"><tr><th></th><th> </th><th colspan="2">Pre-2009<br>Linear Weights</th><th colspan="2">2009 &amp; Later<br>Linear Weights</th><th colspan="2">Elo Models<br>Linear Weights</th></tr><tr><th></th><th>AdjHFA</th><th>AdjO</th><th>AdjD</th><th>AdjO</th><th>AdjD</th><th>Elo</th><th>Elo+</th></tr><tr><th class="hr-rh">Year N-1</th><td>1.000</td><td>0.800</td><td>0.770</td><td>0.860</td><td>0.830</td><td>0.850</td><td>0.850</td></tr><tr><th class="hr-rh">Year N-2</th><td>0.000</td><td>0.070</td><td>0.100</td><td>0.080</td><td>0.065</td><td>0.070</td><td>0.065</td></tr><tr><th class="hr-rh">Year N-3</th><td>0.000</td><td>0.025</td><td>0.025</td><td>0.020</td><td>0.015</td><td>0.025</td><td>0.020</td></tr><tr><th class="hr-rh">Year N-4</th><td>0.000</td><td>0.065</td><td>0.060</td><td>0.025</td><td>0.080</td><td>0.045</td><td>0.040</td></tr><tr><th class="hr-rh">Year N-5</th><td>0.000</td><td>0.040</td><td>0.045</td><td>0.015</td><td>0.010</td><td>0.010</td><td>0.025</td></tr><tr><th class="hr-rh">Average</th><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td></tr><tr><th class="hr-rh">Constant</th><td>0.000</td><td>0.310</td><td>0.015</td><td>0.365</td><td>0.345</td><td>1.950</td><td>1.450</td></tr></table></div>
+<p>My historic ratings go back to 1997<a href="#_ftn3" id="_ftnref3">[3]</a>. For those early seasons, I use <a href="https://masseyratings.com/cf1997/ratings" target="_blank" rel="noopener">Massey Ratings</a> offensive and defensive ratings as my priors<a href="#_ftn4" id="_ftnref4">[4]</a>. I also use Massey for preseason ratings for teams reclassifying from other divisions, since my model is exclusive to DIII teams<a href="#_ftn5" id="_ftnref5">[5]</a>. I adjust the numbers just to get them on the right scale, and I'm sure my preseason weights differ from Massey's, but otherwise, our preseason ratings for reclassifying teams should be nearly identical.</p>
+<p>For startup programs, I don’t have Massey Ratings to set my prior<a href="#_ftn6" id="_ftnref6">[6]</a>, so I originally used the historic average of startups, an <i>AdjEff</i> of -32, as the preseason rating:</p>
+<p><i>AdjO = (National Average Offense) - 16.0<br>AdjD = (National Average Defense) + 16.0</i></p>
+<p>That worked well enough for a while, but I wanted to set a slightly better prior<a href="#_ftn7" id="_ftnref7">[7]</a>, so I tried a method from the now-defunct Atomic Ratings<a href="#_ftn8" id="_ftnref8">[8]</a>, and use teams schedule strength to adjust my preseason expectation:</p>
+<p><i>AdjO = (National_Avg_AdjO) - 13.5 - 0.32*Opp_Avg_AdjEff<br>AdjD = (National_Avg_AdjD) + 13.5 + 0.32*Opp_Avg_AdjEff</i></p>
+<p>The next piece of preseason ratings are the returning production numbers. I used to use teams self-reported number of starters returning in D3Football’s Kickoff magazine<a href="#_ftn9" id="_ftnref9">[9]</a>, but with Kickoff’s demise in the COVID 2020 season (RIP in peace), I had to figure something else out.</p>
+<p>Looking at the primary offensive and defensive statistics for each team, I calculated the percent of returning production in each, and then used a multivariate regression to determine how much each statistic contributed to a team’s over- or under-performance from my model’s naive preseason expectations. To determine who was returning or not, I just assumed players listed as seniors were leaving, and everyone else was staying. From 2009-2019, this assumption was probably well-founded, but after 2020, who knows?. I kept doing it anyways, but manually checked the rosters for the top 50 or so teams<a href="#_ftn10" id="_ftnref10">[10]</a>.</p>
+<div class="hr-tablewrap"><table class="hr-table"><tr><th colspan="2">Offensive Returning Production</th><td class="hr-empty"></td><th colspan="2">Defensive Returning Production</th></tr><tr><th>Statistic</th><th>Weight</th><td class="hr-empty"></td><th>Statistic</th><th>Weight</th></tr><tr><th class="hr-rh">Pass Att</th><td>0.150</td><td class="hr-empty"></td><th class="hr-rh">Tackles</th><td>0.121</td></tr><tr><th class="hr-rh">Pass Yds</th><td>0.067</td><td class="hr-empty"></td><th class="hr-rh">TFLs</th><td>0.513</td></tr><tr><th class="hr-rh">Rush Att</th><td>0.000</td><td class="hr-empty"></td><th class="hr-rh">Sacks</th><td>0.000</td></tr><tr><th class="hr-rh">Rush Yds</th><td>0.154</td><td class="hr-empty"></td><th class="hr-rh">PBU</th><td>0.219</td></tr><tr><th class="hr-rh">Receptions</th><td>0.349</td><td class="hr-empty"></td><th class="hr-rh">INTs</th><td>0.147</td></tr><tr><th class="hr-rh">Rec Yds</th><td>0.041</td><td class="hr-empty"></td><th class="hr-rh">Def GP</th><td>0.000</td></tr><tr><th class="hr-rh">OL GP<a href="#_ftn11" id="_ftnref11"><b>[11]</b></a></th><td>0.239</td><td class="hr-empty"></td><td class="hr-empty"></td><td class="hr-empty"></td></tr></table></div>
+<p>The equation for how much a team’s returning production affects their ratings are:</p>
+<p><i>AdjO = AdjO + 12.5*(Returning_Off Avg_Returning_Off)<br>AdjD = AdjD 10.0*(Returning_Def Avg_Returning_Def)</i></p>
+<p>As you can see, the coefficient for returning offensive production is slightly higher than that for returning defensive production, but the variation among teams returning defensive production is higher than the variation of offensive production<a href="#_ftn12" id="_ftnref12">[12]</a>, so the effect of offensive vs. defensive production is relatively equal.</p>
+<p>The last piece of the preseason ratings is a coaching adjustment. The NCAA.org statistics page keeps great records of teams head coaches over the years, so it’s easy to track when teams have coaching changes. Any teams who experienced a head coaching change since the start of the previous season will have their ratings adjusted<a href="#_ftn13" id="_ftnref13">[13]</a>. Those teams experience a slight rating decline (2.22 points) and regression to the mean (2%).</p>
+<p><i>AdjO = 0.98*AdjO + 0.02*Avg_AdjO - 1.11<br>AdjD = 0.98*AdjD + 0.02*Avg_AdjD + 1.11</i></p>
+<h2>In-Season Predictions and Ratings</h2>
+<p>Now that I’ve calculated preseason ratings, I can start predicting games. New in 2024, I’m making four different predictions for each game. The first prediction is the same as I’ve always used, which is based on teams <i>AdjEff</i> ratings. Then I make one prediction apiece using the two Elo models, and the final, official prediction is an ensemble<a href="#_ftn14" id="_ftnref14">[14]</a> of those three predictions<a href="#_ftn15" id="_ftnref15">[15]</a>. The final prediction uses linear weights, with the <i>AdjEff</i> prediction carrying the major heft, and the Elo models serving as a slight corrective if the <i>AdjEff</i> model is overconfident<a href="#_ftn16" id="_ftnref16">[16]</a>.</p>
+<p><i>Spread = 0.928*AdjEff_Spread + 0.045*Elo_Spread + 0.028*Elo+_Spread</i></p>
+<p>Before calculating game spreads, I first calculate the estimated home-field advantage (<i>EstHFA</i>) for each matchup, which is the sum of each team’s <i>AdjHFA</i>. This <i>EstHFA</i> is used in each of the three different models predictions. My version of <i>AdjHFA</i> estimates the difference between how well a team plays at home and how well they play on the road<a href="#_ftn17" id="_ftnref17">[17]</a>.</p>
+<p>Calculating the estimated margin of victory (<i>EstMOV</i>) and win probability (<i>EstWP</i>) for each model is probably the simplest part of this whole enterprise. The spread for the Elo models is calculated the same way FiveThirtyEight does it, but with my version of <i>EstHFA</i> instead:</p>
+<p><i>EstMOV = (Elo - OppElo + EstHFA)/25<br> EstWP = 1 / (10<sup>25*EstMOV/400</sup>+1)</i></p>
+<p>In the <i>AdjEff</i> prediction, I’m explicitly calculating the estimated score for each team instead of just the spread, so that’s only mildly more complicated:</p>
+<p><i>EstOff = AdjO + Opp_AdjD - Avg_AdjD + EstHFA/2<br>EstDef = AdjD + Opp_AdjO - Avg_AdjO - EstHFA/2<br>EstMOV = EstOff - EstDef<br>EstWP = normdist(EstMOV, 0, 15.75, TRUE)<a href="#_ftn18" id="_ftnref18"><b>[18]</b></a></i></p>
+<p>After making game predictions, the games are played (who cares about that part?), and then the ratings get updated. As you might have guessed, the Elo ratings use the same formula to update ratings as used by FiveThirtyEight, but with different K-Factors<a href="#_ftn19" id="_ftnref19">[19]</a>. The non-MOV Elo model uses a K-Factor of 146 and the MOV-inclusive Elo+ model uses a K-Factor of 57. The difference between the two K-Factors is due to the latter model’s inclusion of a MOV-multiplier. <i>AdjHFA</i> is updated with a very similar process:</p>
+<p><i>AdjHFA = Pregame_AdjHFA + K*(ActualMOV - EstMOV)</i></p>
+<p>The K-Factor for <i>AdjHFA</i> is 0.0028, which essentially means that about one half of one percent of the prediction error belongs to each team’s <i>AdjHFA</i>.</p>
+<p>Updating the <i>AdjO</i> &amp; <i>AdjD</i> ratings might be the most convoluted part of what I do. After I made the switch from the Pythagorean model to the current version, I initially used the following equation to update <i>AdjO</i> and <i>AdjD</i>:</p>
+<p><i>AdjO = Pregame_AdjO + K*(ActualOff - EstOff)<br>AdjD = Pregame_AdjD + K*(ActualDef - EstDef)</i></p>
+<p>That process worked well enough for a few years, but then I started to get frustrated with one team in particular running up scores in the regular season and then underperforming my model’s expectations in the playoffs<a href="#_ftn20" id="_ftnref20">[20]</a>, so I decided that my K-Factor, which had been a constant of 0.1645, should vary depending on the pregame win probability and a simple post-game <a href="https://www.footballstudyhall.com/2014/12/16/7398531/college-football-ratings-second-order-wins" target="_blank" rel="noopener">second-order win probability</a> (<i>PostWP</i>).</p>
+<p>Below is the first version of my variable K-Factor:</p>
+<p><i>PostWP = normdist(ActualMOV, 0, 15.75 ,TRUE)<br>Var_K = K (0.5 + 2*0.5*min(EstWP+PostWP, 1-EstWP + 1-PostWP)<br> AdjO = Pregame_AdjO + Var_K*(ActualOff - EstOff) <br>AdjD = Pregame_AdjD + Var_K*(ActualDef - EstDef)</i></p>
+<p>What the variable K-Factor does is decrease the magnitude of movement by about half for games that were supposed to be blowouts <i>and </i>ended up being blowouts. If it’s supposed to be moderately close and ends up being moderately close, the ratings move the same as they would have with a constant K-Factor. The big jumps happen in upsets. Games where the results are particularly surprising, where the underdog wins by a lot or where a big underdog pulls off an upset end up with the largest K-Factor.</p>
+<p>After using this K-Factor for a few years, I decided to do some more thorough testing to see what proportion of constant K to variable K yielded the best predictive accuracy. I started off with 50-50 (the 0.5 terms in the <i>Var_K</i> equation, above), and the best results settled in at 80% constant/20% variable.</p>
+<p>Before the 2023 season I made two other changes to my K-Factor. First, I added a weekly modifier, so that games earlier in the year moved ratings more than games later in the year. I made this change because I noticed that my ratings were always slightly less predictive early in the year, which is to be expected, but by allowing ratings to jump around more in the early weeks, I was able to get even better predictive accuracy by mid-season.</p>
+<div class="hr-tablewrap"><table class="hr-table"><tr><th>Week of<br>Season</th><th>K-Factor<br>Magnitude</th></tr><tr><th class="hr-rh">Week 1</th><td>1.14</td></tr><tr><th class="hr-rh">Week 2</th><td>1.10</td></tr><tr><th class="hr-rh">Week 3</th><td>1.06</td></tr><tr><th class="hr-rh">Week 4</th><td>1.02</td></tr><tr><th class="hr-rh">Week 5</th><td>0.98</td></tr><tr><th class="hr-rh">Week 6</th><td>0.94</td></tr><tr><th class="hr-rh">Weeks 7-11</th><td>0.90</td></tr><tr><th class="hr-rh">Playoffs</th><td>1.00</td></tr></table></div>
+<p>The second major change before the 2023 season was using different K-Factors for <i>AdjO</i> and <i>AdjD</i>. I was able to improve accuracy by using a slightly higher offensive K-Factor (0.185) and a slightly lower defensive K-Factor (0.160).</p>
+<p><i>K_Off = 0.185*(0.8 + 2*0.2*min(EstWP+PostWP, 1-EstWP + 1-PostWP)<br>K_Def = 0.160*(0.8 + 2*0.2*min(EstWP+PostWP, 1-EstWP + 1-PostWP)<br> AdjO = Pregame_AdjO + K_Off*(ActualOff - EstOff) <br>AdjD = Pregame_AdjD + K_Def*(ActualDef - EstDef)</i></p>
+<p>Considering all the various K-Factors, I can estimate how much of the model’s prediction error is due to HFA, offense, defense, and random variation/<a href="https://fivethirtyeight.com/features/rage-against-the-machines/" target="_blank" rel="noopener">noise</a>.</p>
+<p>Let’s use an example. Say a game was predicted to be 35-25 in favor of the home team (74%/26% win probability), and it ended up being 35-32 (58%/42% postgame win expectancy).</p>
+<div class="hr-tablewrap"><table class="hr-table"><tr><th>Factor</th><th>Points</th><th>Percentage</th></tr><tr><th class="hr-rh">Error</th><td>7.00</td><td>100%</td></tr><tr><th class="hr-rh">Home HFA</th><td>0.02</td><td>0.3%</td></tr><tr><th class="hr-rh">Away HFA</th><td>0.02</td><td>0.3%</td></tr><tr><th class="hr-rh">Home Off</th><td>0.00</td><td>0%</td></tr><tr><th class="hr-rh">Away Def</th><td>0.00</td><td>0%</td></tr><tr><th class="hr-rh">Home Def</th><td>1.20</td><td>17%</td></tr><tr><th class="hr-rh">Away Off</th><td>1.39</td><td>20%</td></tr><tr><th class="hr-rh">Noise</th><td>4.36</td><td>62%</td></tr></table></div>
+<p>In this hypothetical, 62% of the prediction error is due to noise, 0.6% home-field advantage, 20% offense, and 17% defense. Because most of the error is attributed to noise, this means that if the game were to be replayed immediately, the subsequent prediction would always be closer to the previous prediction than the actual outcome<a href="#_ftn21" id="_ftnref21">[21]</a>.</p>
+<p>To make the opaque process of updating ratings after each game more complicated, new in 2024 I’m adding what I’m referring to as an Island Adjustment<a href="#_ftn22" id="_ftnref22">[22]</a>. The schools on the DIII islands on the West Coast and Texas rarely get to play games outside of their geographic proximity, so I wanted to make sure any persistent non-conference trends were accounted for in team ratings. Add in the fact that the PAC didn’t play any non-conference games in 2023, and that each of their teams who played in the post-season vastly outperformed their expectation, and I decided this was the right direction to go.</p>
+<p>The adjustment is simple. It takes the sum of predictive error for teams in each conference in a given week, and then adds 0.6% of that error to each team’s offensive and defensive ratings. If a conference plays eight non-conference games, and each team performs 7 points better than predicted, the ratings will update as usual, and then about a sixth of a point (7*8*0.6%/2 = 0.17) gets added to and subtracted from each team’s <i>AdjO</i> and <i>AdjD</i>, respectively<a href="#_ftn23" id="_ftnref23">[23]</a>. If the conference underperforms, team ratings get worse. This adjustment hardly improves predictive accuracy<a href="#_ftn24" id="_ftnref24">[24]</a>, but it feels right to me, so I’m keeping it.</p>
+<h2>One Last Thing</h2>
+<p>For a long time, I completely excluded games outside of the division. I assumed there were so few of those games that including them would just add noise to my predictions, and I wanted my model to be exclusive to DIII. Only DIII games. Only DIII teams. Calibrated for accuracy in DIII.</p>
+<p>After 2020 it seemed to me that some of the top teams in the division were playing more games out of the division than usual<a href="#_ftn25" id="_ftnref25">[25]</a>, so I wanted some way to give those teams credit in my resume rankings and to inform my Top 25 vote. In the seasons from 2021 to 2023, I manually input the score predictions for out-of-division games from Massey into my model. I didn’t track whether including those games improved my model’s accuracy at all, because I was mostly concerned with including them for the resume rankings.</p>
+<p>This offseason, while I was going back through previous seasons to calculate Elo ratings and calibrating the Island Adjustment, I noticed how much more frequently teams played out of the division than they do now<a href="#_ftn26" id="_ftnref26">[26]</a>. Because of that, I decided to figure out some way to include results from those historical games in my ratings. Massey is great for historic ratings, but as far as I know, there’s no way to go back in time and see team ratings mid-season to calculate estimated scores.</p>
+<p>Begrudgingly, I decided to use Massey’s end-of-season ratings to craft my predictions <a href="#_ftn27" id="_ftnref27">[27]</a>. The first step in creating a game prediction was crafting a rating for each non-DIII team. To do this, I calculated the average and standard deviation of offensive &amp; defensive ratings for teams in my model, and then took teams Massey ratings and re-scaled them so they would have the same z-score in both models.</p>
+<p>After plugging those teams ratings into my model and calculating game predictions the same way as I do for regular games, my model’s accuracy improved so drastically that I thought I had introduced a coding error. Admittedly, I was cheating a bit because I was using end of season ratings for the non-DIII teams, but my model’s average absolute error improved by about 1%. I know this doesn’t seem like a wow, you definitely made a mistake level of improvement, but for context, if I looked up all the other tweaks I’ve made since 2015:</p>
+<p class="hr-li hr-li1">Returning production adjustments (0.50%)</p>
+<p class="hr-li hr-li1">Weighted K-Factors by game week (0.21%)</p>
+<p class="hr-li hr-li1">Variable K-Factor (0.13%)</p>
+<p class="hr-li hr-li1">Team-specific <i>AdjHFA</i> (0.09% improvement)</p>
+<p class="hr-li hr-li1">Different linear weights for preseason <i>AdjO</i> &amp; <i>AdjD</i> (0.07%)</p>
+<p class="hr-li hr-li1">Ensemble ratings with <i>Elo</i> &amp; <i>Elo+</i> (0.07%)</p>
+<p class="hr-li hr-li1">Separate K-Factors for <i>AdjO</i> &amp; <i>AdjD</i> (0.04%)</p>
+<p class="hr-li hr-li1">Coaching adjustment (0.04%)</p>
+<p class="hr-li hr-li1">SOS-dependent startup program ratings (0.04%)</p>
+<p class="hr-li hr-li1">Island adjustment (0.01%)</p>
+<p>Including non-DIII games provided nearly as much of a lift as all of those combined. The moral of the story? A) including more data (games) in your model is going to do way more for your accuracy than anything else you can do, and B) calibrating a model for a specific level and sport sets a pretty high baseline for accuracy. That latter point is why my answer to a frequent question I get, Why don’t you use this for sports betting? is usually Because this model would be terrible at predicting anything but DIII football.</p>
+<h2>Conclusion</h2>
+<p>If you’ve somehow made it this far, congratulations! You now have all the information you would need to perfectly recreate my ratings.</p>
+<p>And you're a complete degenerate<a href="#_ftn28" id="_ftnref28">[28]</a>.</p>
+<hr class="hr-fnrule">
+<p class="hr-fn"><a href="#_ftnref1" id="_ftn1">[1]</a> As you'll see, I eventually changed my ratings to use scoring margins instead of scoring ratios, a change KenPom made as well, the season after I did. I would like to take credit and say I influenced him, but in all likelihood, his change was made independently from mine.</p>
+<p class="hr-fn"><a href="#_ftnref2" id="_ftn2">[2]</a> I do not recommend this, if you can avoid it.</p>
+<p class="hr-fn"><a href="#_ftnref3" id="_ftn3">[3]</a> Why 1997? Because that’s as far back as the tabulated team results go in the NCAA database. Game results before 1997 are only stored as handwritten scans. I'm hopeful that some sort of AI/machine learning algorithm will help me solve the problem of turning all these scans into sortable tables, but I haven't bothered to dig in too much, yet, although I am determined to eventually get ratings calculated for the four-peat Augustana teams.</p>
+<p class="hr-fn"><a href="#_ftnref4" id="_ftn4">[4]</a> I've reached out to Ken Massey about getting his game files for seasons pre-1997, but he said that he's not confident in his data fidelity for those earlier seasons, so he's unwilling to share them.</p>
+<p class="hr-fn"><a href="#_ftnref5" id="_ftn5">[5]</a> With some minor exceptions. I calculate Apprentice's ratings every year, but don’t rank them. They've played a majority of their games against DIII opponents every year except one since 1997. I also calculated Trinity Bible's ratings for a few seasons while they were in the UMAC, and I calculated Emory &amp; Henry's ratings their first year as a DII, since they still played a full ODAC schedule. I also think I have some other schools included in my historic ratings prematurely, before they were officially classified as DIII, such as Crown and Northwestern Minn., but they were playing in a DIII conference, so that's fine with me.</p>
+<p class="hr-fn"><a href="#_ftnref6" id="_ftn6">[6]</a> For some, I technically could. Starting in the mid-aughts, Massey started calculating ratings for club teams, so if a DIII startup played a club season before they played a varsity season, they would have a Massey Rating, but I don’t use those at all.</p>
+<p class="hr-fn"><a href="#_ftnref7" id="_ftn7">[7]</a> It was Calvin’s announcement that they were adding football that gave me the motivation.</p>
+<p class="hr-fn"><a href="#_ftnref8" id="_ftn8">[8]</a> Atomic Ratings were pretty good. Back when I used to track every DIII computer rating’s predictions, they were consistently in the same ballpark as my ratings in terms of absolute error in the latter half of the season.</p>
+<p class="hr-fn"><a href="#_ftnref9" id="_ftn9">[9]</a> Amazingly, this method worked better than using any sort of percentage of games started or games played returning. I think a lot of coaches were responding to "How many good players do you have returning? " instead of the actual question asked. The average number of starters returning from 2013-2019 was 6.75, and the average value of each returning starter above- or below-average was worth somewhere between 1.0 and 1.5 points per game.</p>
+<p class="hr-fn"><a href="#_ftnref10" id="_ftn10">[10]</a> And then I assumed the percentage of seniors coming back held constant for teams I didn’t check manually.</p>
+<p class="hr-fn"><a href="#_ftnref11" id="_ftn11">[11]</a> I would have liked to use offensive line games started, as well, but there are two problems: seasons before 2012 don’t have games started in the NCAA statistics database, and games started data is extremely scattershot.</p>
+<p class="hr-fn"><a href="#_ftnref12" id="_ftn12">[12]</a> With a slight caveat: returning offensive production tends to be bimodal, with one mode centered around 80% and the other much, much, lower. You might be able to figure out why. When both your passing and rushing offense runs through one player, the quarterback, losing that one player can be catastrophic to your returning production numbers.</p>
+<p class="hr-fn"><a href="#_ftnref13" id="_ftn13">[13]</a> By the NCAA’s count, there have only been 13 mid-season coaching changes since 1997.</p>
+<p class="hr-fn"><a href="#_ftnref14" id="_ftn14">[14]</a> Ensemble is just a fancy word for weighted average.</p>
+<p class="hr-fn"><a href="#_ftnref15" id="_ftn15">[15]</a> Back-testing this ensemble over 26 seasons, it was more accurate than the AdjEff spread in 20 seasons, but only more accurate in one season since COVID. The lost season did a number on the Elo ratings accuracy.</p>
+<p class="hr-fn"><a href="#_ftnref16" id="_ftn16">[16]</a> I decided to do an ensemble rating after I created the Elo ratings for a different project, and then noticed that they were much more accurate predicting the Stagg Bowl. This is almost definitely because of small sample sizes, but I figured why not? The Elo models don’t usually move the prediction much, usually only a half point, if that, but they improve the overall accuracy of the model.</p>
+<p class="hr-fn"><a href="#_ftnref17" id="_ftn17">[17]</a> A lot of very smart people have spent a lot of time calculating how different aspects of sport rest, travel distance, changing time zones, etc. affect HFA. That all would probably make my predictions a little better, but to be honest, it sounds like way more work than its worth.</p>
+<p class="hr-fn"><a href="#_ftnref18" id="_ftn18">[18]</a> I’m sure most of you recognize this as the pro-football-reference.com win probability equation. I honestly don’t care much at all for doing anything more detailed for win probability, because most people see WP>50% and internalize it as WP=100%. I only care about the predicted margin.</p>
+<p class="hr-fn"><a href="#_ftnref19" id="_ftn19">[19]</a> The K-Factor determines how much the ratings move after each game.</p>
+<p class="hr-fn"><a href="#_ftnref20" id="_ftn20">[20]</a> [cough] St. Thomas [cough]</p>
+<p class="hr-fn"><a href="#_ftnref21" id="_ftn21">[21]</a> This is hard for people to accept, and I think it’s where 99% of the critiques of my model come from, but if you want a model that strictly ranks teams ahead of teams they’ve beaten, it would be a terrible model for <i>predicting</i> future games.</p>
+<p class="hr-fn"><a href="#_ftnref22" id="_ftn22">[22]</a> After posting about it on Twitter, Bill Connelly of ESPN, formerly of SBNation, said he does something similar, but he calls his a Real Estate Adjustment.</p>
+<p class="hr-fn"><a href="#_ftnref23" id="_ftn23">[23]</a> Subtracting from AdjD means their defense is rated better.</p>
+<p class="hr-fn"><a href="#_ftnref24" id="_ftn24">[24]</a> Absolute error is 0.01% better than if I didn’t use it.</p>
+<p class="hr-fn"><a href="#_ftnref25" id="_ftn25">[25]</a> Historically, this really wasn’t the case at all.</p>
+<p class="hr-fn"><a href="#_ftnref26" id="_ftn26">[26]</a> In 1997 &amp; 1998, DIII teams averaged nearly one out of division game per season. In 2023 the whole division only played 24 games outside the division.</p>
+<p class="hr-fn"><a href="#_ftnref27" id="_ftn27">[27]</a> It’s really not fair to call these predictions since they’re created from ratings that have information from the future, but when I’m tracking my model’s accuracy, I’m excluding these games anyways. Games after 2020 use non-DIII teams pre-game Massey Ratings.</p>
+<p class="hr-fn"><a href="#_ftnref28" id="_ftn28">[28]</a> In other words, one of my people.</p></article></div>
+  </main>
+  <footer class="hr-foot">
+    <span>&copy; Hansen Ratings</span>
+  </footer>
+</div>
+<script>
+// One dropdown open at a time. The others close on pointerdown -- BEFORE the
+// click toggles the new one -- so there is never a frame with two open, which
+// read as a flicker when switching menus. Everything else about the menu is CSS.
+(function () {
+  var all = function () { return document.querySelectorAll(".hr-nav details[open]"); };
+  document.querySelectorAll(".hr-nav details > summary").forEach(function (s) {
+    s.addEventListener("pointerdown", function () {
+      all().forEach(function (o) { if (o !== s.parentNode) o.removeAttribute("open"); });
+    });
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".hr-nav")) return;
+    all().forEach(function (o) { o.removeAttribute("open"); });
+  });
+})();
+// Sticky columns. reactable writes each sticky cell's `left` inline from the
+// column's configured width, but the phone stylesheet caps wide sticky columns
+// at 140px, so the second sticky column would pin 60px short of the first.
+// Re-derive every left offset from the widths actually rendered, whenever the
+// table (re)renders or the viewport changes.
+(function () {
+  var pending = false;
+  // Rendered widths are fractional (a 62.5px Rank column is common), and
+  // offsetWidth rounds, so read the computed width instead. It is unzoomed,
+  // like `left`, unlike getBoundingClientRect.
+  function width(c) {
+    var s = getComputedStyle(c), w = parseFloat(s.width);
+    if (s.boxSizing !== "border-box")
+      w += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) +
+           parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+    return w;
+  }
+  // Each sticky cell is composited as its own layer, and where two layers meet
+  // at a fractional device pixel their edges can snap apart, showing a hairline
+  // of whatever scrolled underneath. So the second sticky cell onward starts
+  // 1px inside its predecessor: the cells have opaque backgrounds and no side
+  // borders, so the overlap is invisible and there is no seam to snap.
+  function fix() {
+    pending = false;
+    document.querySelectorAll(".hr-main .rt-tr").forEach(function (tr) {
+      var x = 0, n = 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        if (!c.classList.contains("rt-sticky") || !c.style.left) return;
+        var want = (n ? x - 1 : 0) + "px";
+        if (c.style.left !== want) c.style.left = want;
+        x += width(c); n++;
+      });
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fix); } }
+  var w = document.querySelector(".hr-main");
+  if (!w || !("MutationObserver" in window)) return;
+  new MutationObserver(queue).observe(w, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
+  window.addEventListener("resize", queue);
+  window.addEventListener("load", queue);
+  queue();
+})();
+</script>
+</body>
+</html>
+

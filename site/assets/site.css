@@ -1,0 +1,287 @@
+
+/* Hansen Ratings -- site.css */
+/* font-display: block, not swap. With swap, a light page (the scenarios app
+   has no table to wait for) painted the header in the fallback face and then
+   re-laid it out in Raleway a frame later, so the menu labels visibly changed
+   width when moving between pages. The files are preloaded from <head>, so on
+   any warm visit the font is ready before first paint and block costs
+   nothing; on a cold first visit it holds the text for the download rather
+   than showing the wrong face and shifting. */
+@font-face { font-family: "Raleway"; font-weight: 400; font-style: normal; font-display: block;
+             src: url("/assets/fonts/Raleway-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Raleway"; font-weight: 600; font-style: normal; font-display: block;
+             src: url("/assets/fonts/Raleway-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Raleway"; font-weight: 700; font-style: normal; font-display: block;
+             src: url("/assets/fonts/Raleway-Bold.ttf") format("truetype"); }
+
+:root {
+  /* #323E4F is the live site's banner colour, which the wordmark gradient was
+     drawn against; #1E2A3A is the darker navy of the social boards. */
+  --navy: #323E4F; --navy-2: #1E2A3A; --cream: #F7E9DC; --orange: #F58D42;
+  --ink: #1E2A3A; --ink-2: #54606F; --ground: #FFFFFF; --rule: #E6E1DA;
+  --top-h: 56px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font-family: "Raleway", "Segoe UI", system-ui, sans-serif; color: var(--ink);
+       background: var(--ground); display: flex; flex-direction: column; }
+a { color: inherit; }
+
+/* ---- header ---- */
+.hr-top { flex: 0 0 auto; height: var(--top-h); background: var(--navy); color: var(--cream);
+          display: flex; align-items: stretch; padding: 0 12px 0 16px; position: relative; z-index: 20; }
+/* The wordmark: the live site's logo is a GIF with a white-to-orange gradient
+   run across the whole word, bold "Hansen", regular "Ratings". Same gradient,
+   sampled from that image, as live text. */
+.hr-brand { display: flex; align-items: center; font-size: 22px; text-decoration: none;
+            letter-spacing: -0.01em; margin-right: 8px; white-space: nowrap; font-weight: 400;
+            background: linear-gradient(90deg, #FFFFFF 0%, #FFF1E3 14%, #FFDEC5 30%, #FFC69E 48%,
+                                        #F7B77B 64%, #F7975C 82%, #F58D42 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hr-brand b { font-weight: 700; }
+.hr-nav { display: flex; align-items: stretch; margin-left: auto; }
+.hr-menu { position: relative; }
+.hr-menu > summary { list-style: none; cursor: pointer; height: var(--top-h); display: flex;
+                     align-items: center; padding: 0 13px; font-weight: 600; font-size: 15px;
+                     border-bottom: 3px solid transparent; user-select: none; }
+.hr-menu > summary::-webkit-details-marker { display: none; }
+.hr-menu > summary::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
+                            border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+                            transform: translateY(-2px) rotate(45deg); opacity: .7; }
+/* Open and current-section states change only the underline -- never the
+   background, which re-antialiased the label and read as a jitter. */
+.hr-menu-active > summary,
+.hr-menu[open] > summary { border-bottom-color: var(--orange); }
+.hr-menu[open] > summary::after { transform: translateY(1px) rotate(-135deg); }
+.hr-menu > ul { list-style: none; margin: 0; padding: 6px 0; position: absolute; top: var(--top-h); left: 0;
+                min-width: 220px; background: var(--ground); color: var(--ink); border: 1px solid var(--rule);
+                border-top: 3px solid var(--orange); box-shadow: 0 8px 24px rgba(30,42,58,.18); }
+/* The last two menus sit near the right edge; hang their lists leftward so
+   they stay on screen. */
+.hr-menu:nth-last-of-type(-n+2) > ul { left: auto; right: 0; }
+.hr-menu > ul a { display: block; padding: 8px 16px; text-decoration: none; font-size: 15px; }
+.hr-menu > ul a:hover, .hr-menu > ul a:focus-visible { background: var(--cream); outline: none; }
+.hr-support { display: flex; align-items: center; margin-left: 6px; padding: 0 14px 0 12px;
+              color: var(--orange); font-weight: 700; font-size: 15px; text-decoration: none;
+              border-bottom: 3px solid transparent; }
+.hr-support:hover { border-bottom-color: var(--orange); }
+.hr-burger-btn { display: none; }
+
+/* ---- title + switcher ---- */
+.hr-page { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.hr-title { flex: 0 0 auto; padding: 14px 20px 10px; border-bottom: 1px solid var(--rule); }
+.hr-title h1 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2; }
+.hr-lead { margin: 6px 0 0; color: var(--ink-2); font-size: 14px; }
+.hr-switch { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 4px; margin-top: 8px;
+             font-size: 14px; }
+.hr-switch-label { color: var(--ink-2); margin-right: 6px; font-size: 12px; text-transform: uppercase;
+                   letter-spacing: .06em; }
+.hr-switch a { text-decoration: none; padding: 2px 8px; border-radius: 3px; color: var(--ink-2); }
+.hr-switch a[href]:hover { background: var(--cream); color: var(--ink); }
+.hr-switch a[aria-current] { background: var(--navy); color: var(--cream); font-weight: 600; }
+
+/* ---- content ---- */
+/* The table is the only thing that scrolls; header, title and footer stay put.
+   That is the behaviour the current sticky-chrome retrofit provides, done in
+   the layout instead of with !important. */
+.hr-main { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; padding: 0 20px; }
+.hr-main > .html-widget { flex: 1 1 auto; min-height: 0; height: auto !important; }
+.hr-main .Reactable { height: 100%; }
+.hr-main .rt-table { height: 100%; }
+.hr-prose { padding: 4px 0 40px; font-size: 16px; line-height: 1.6; }
+.hr-prose img { max-width: 100%; height: auto; }
+.hr-prose h2 { font-size: 20px; font-weight: 700; margin: 28px 0 10px; }
+.hr-prose p { margin: 0 0 12px; }
+.hr-prose a { color: var(--orange); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.hr-prose a:hover { color: var(--ink); }
+/* Word list paragraphs: the number sits in its own slot in the margin, so
+   the text starts at one indent on every line */
+.hr-prose .hr-li  { position: relative; padding-left: 2.2em; margin-bottom: 6px; }
+.hr-prose .hr-li2 { padding-left: 4.4em; }
+.hr-prose .hr-num { position: absolute; left: 0; width: 2em; text-align: right; padding-right: .4em;
+                    box-sizing: border-box; }
+.hr-prose .hr-li2 .hr-num { left: 2.2em; }
+/* the glossary */
+.hr-prose dl { margin: 0 0 16px; }
+.hr-prose dt { font-weight: 700; margin-top: 12px; }
+.hr-prose dd { margin: 2px 0 0 0; color: var(--ink-2); }
+/* footnotes: the [n] references are superscripts, in the body and in the
+   note, and never bold -- Word left one wrapped in <b> */
+.hr-prose a[href^="#_ftn"] { vertical-align: super; font-size: .7em; line-height: 0; text-decoration: none; }
+.hr-prose a[href^="#_ftn"] b { font-weight: 400; }
+.hr-fnrule { border: 0; border-top: 1px solid var(--rule); margin: 36px 0 16px; }
+.hr-prose .hr-fn { font-size: 13.5px; color: var(--ink-2); margin-bottom: 8px; line-height: 1.5; }
+/* tables inside prose: bold cells are column headers (navy), italic cells
+   row headers (orange), both in white */
+.hr-tablewrap { overflow-x: auto; margin: 6px 0 16px; }
+.hr-table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.hr-table td, .hr-table th { border: 1px solid var(--rule); padding: 4px 10px; text-align: center;
+                             white-space: nowrap; font-weight: 400; }
+.hr-table th { background: var(--navy); color: #fff; font-weight: 600; border-color: var(--navy-2); }
+.hr-table th.hr-rh { background: var(--orange); color: #fff; border-color: var(--orange); text-align: left; }
+.hr-table td.hr-empty { border: 0; background: transparent; min-width: 14px; }
+/* An embedded app (the Shiny scenarios page) fills the content area the way
+   a table does. */
+.hr-embed { flex: 1 1 auto; min-height: 0; width: 100%; border: 0; display: block; }
+
+/* A fixed-size sheet (the conference previews: an 850x1100 designed page
+   with pixel-anchored hover cards) shown in a frame and zoomed to the width
+   available -- up as well as down -- so it is the same sheet at every size
+   rather than a reflowed one. --k is set by the small script in the page.
+   The wrap is capped so a wide monitor gets a large sheet, not a wall. */
+.hr-sheet-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 0 24px;
+                 max-width: 1360px; }
+/* content-box, and the border on a wrapper, not the frame: with the global
+   border-box sizing an 850px frame with a 1px border gave the sheet
+   848px, and two pixels of overflow put scrollbars on the frame that then
+   ate another fifteen each. */
+.hr-sheet-frame { display: inline-block; border: 1px solid var(--rule); line-height: 0;
+                  zoom: var(--k, 1); }
+.hr-sheet { box-sizing: content-box; width: 850px; height: 1100px; border: 0; display: block;
+            overflow: hidden; }
+
+/* Flow pages: no pinned chrome, no inner scroll box -- the window scrolls.
+   Not used for the sheets after all (the pinned header and footer were
+   wanted), kept for a page that genuinely reads top to bottom. */
+body.hr-flow { height: auto; min-height: 100%; }
+body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
+
+/* A long page (awards, previews): the content area scrolls, header and title
+   stay put, same as a table. */
+.hr-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 0 40px; }
+.hr-awards { max-width: 980px; }
+.hr-awards h2 { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
+.hr-awards dl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 18px; margin: 0 0 22px;
+                font-size: 15px; }
+.hr-awards dt { color: var(--ink-2); }
+.hr-awards dd { margin: 0; font-weight: 600; }
+.hr-graphic { margin: 0 0 18px; max-width: 1100px; }
+.hr-graphic a { display: block; }
+.hr-graphic img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+@media (max-width: 600px) {
+  .hr-awards dl { grid-template-columns: 1fr; gap: 0; }
+  .hr-awards dt { margin-top: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+}
+
+/* Team of the Week: four sections placed explicitly.
+     wide    Offense | Defense | Special Teams      Offense and Defense span
+                               | Coaches            both rows, so Coaches sits
+                                                    straight under the specialists
+     tablet  Offense | Defense
+             Special | Coaches                      Coaches under Defense
+     phone   one column, in order
+   Widths: three 270px columns plus two 32px gaps plus the page padding is
+   ~915px; two columns ~610px. */
+.hr-totw { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 32px;
+           max-width: 1100px; margin-bottom: 26px; align-items: start; }
+.hr-totw .u-off { grid-column: 1; grid-row: 1 / 3; }
+.hr-totw .u-def { grid-column: 2; grid-row: 1 / 3; }
+.hr-totw .u-st  { grid-column: 3; grid-row: 1; }
+.hr-totw .u-co  { grid-column: 3; grid-row: 2; margin-top: 14px; }
+@media (max-width: 915px) {
+  .hr-totw { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hr-totw .u-off { grid-column: 1; grid-row: 1; }
+  .hr-totw .u-def { grid-column: 2; grid-row: 1; }
+  .hr-totw .u-st  { grid-column: 1; grid-row: 2; margin-top: 14px; }
+  .hr-totw .u-co  { grid-column: 2; grid-row: 2; }
+}
+@media (max-width: 610px) {
+  .hr-totw { grid-template-columns: 1fr; }
+  .hr-totw .u-off, .hr-totw .u-def, .hr-totw .u-st, .hr-totw .u-co { grid-column: 1; grid-row: auto; margin-top: 14px; }
+  .hr-totw .u-off { margin-top: 0; }
+}
+.hr-totw h2 { font-size: 17px; font-weight: 700; margin: 6px 0 8px; padding-bottom: 4px;
+              border-bottom: 2px solid var(--navy); }
+.hr-totw .r { display: grid; grid-template-columns: 50px 1fr; gap: 0 10px; padding: 4px 0;
+              border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: baseline; }
+.hr-totw .r b { color: var(--orange); font-weight: 700; font-size: 13px; letter-spacing: .03em; }
+.hr-totw .r small { color: var(--ink-2); font-weight: 400; margin-left: 4px; }
+.hr-totw .r .t { display: block; color: var(--ink-2); font-size: 13px; }
+.hr-boards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
+             max-width: 1100px; }
+.hr-boards img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+
+/* ---- home ---- */
+/* Tiles: the current social post as the thumbnail (4:5, as posted), the
+   section name, one line on what it is. A tile with no image yet is the
+   navy with the name set large. */
+/* Six tiles: six across, then three, two, one -- never five or four, which
+   would strand one or two on a row of their own. */
+.hr-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;
+            max-width: 1320px; padding: 4px 0 8px; }
+@media (max-width: 1180px) { .hr-tiles { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px)  { .hr-tiles { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 440px)  { .hr-tiles { grid-template-columns: 1fr; } }
+.hr-tile { display: block; text-decoration: none; color: inherit; border: 1px solid var(--rule);
+           border-radius: 6px; overflow: hidden; background: var(--ground);
+           transition: transform .12s ease, box-shadow .12s ease; }
+.hr-tile:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(30,42,58,.16); }
+.hr-tile:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.hr-tile-img { aspect-ratio: 4 / 5; background: var(--navy); overflow: hidden; display: flex;
+               align-items: center; justify-content: center; }
+.hr-tile-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.hr-tile-img .hr-tile-blank { color: var(--cream); font-size: 26px; font-weight: 700; text-align: center;
+                              padding: 20px; line-height: 1.15; }
+.hr-tile-img .hr-tile-blank b { color: var(--orange); display: block; font-size: 13px; letter-spacing: .08em;
+                                text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+.hr-tile-body { padding: 12px 14px 14px; }
+.hr-tile-body h2 { margin: 0 0 4px; font-size: 17px; font-weight: 700; }
+.hr-tile-body p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+/* everything else, as a compact list under the tiles */
+.hr-more { max-width: 1240px; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.hr-more h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2);
+              margin: 0 0 10px; font-weight: 600; }
+.hr-more ul { list-style: none; margin: 0; padding: 0; display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px 28px; }
+.hr-more a { text-decoration: none; font-weight: 600; }
+.hr-more a:hover { color: var(--orange); }
+.hr-more span { color: var(--ink-2); font-size: 13.5px; }
+
+/* ---- footer ---- */
+.hr-foot { flex: 0 0 auto; display: flex; gap: 18px; padding: 8px 20px; font-size: 12.5px;
+           color: var(--ink-2); border-top: 1px solid var(--rule); }
+.hr-foot a { color: var(--ink-2); }
+
+/* ---- narrow: hamburger menu ----
+   The full header -- wordmark, six menus, Support -- needs 919px. Below that
+   the last menu's list and the Support link ran off the right edge on tablets
+   and half-screen windows, so the hamburger takes over well before then. */
+@media (max-width: 980px) {
+  .hr-top { padding-right: 8px; }
+  .hr-burger-btn { display: flex; align-items: center; margin-left: auto; width: 44px; height: var(--top-h);
+                   cursor: pointer; justify-content: center; }
+  .hr-burger-btn span, .hr-burger-btn span::before, .hr-burger-btn span::after {
+    display: block; width: 22px; height: 2px; background: var(--cream); position: relative; content: ""; }
+  .hr-burger-btn span::before { position: absolute; top: -7px; }
+  .hr-burger-btn span::after  { position: absolute; top:  7px; }
+  .hr-nav { display: none; position: absolute; top: var(--top-h); left: 0; right: 0;
+            flex-direction: column; background: var(--navy); border-top: 1px solid var(--navy-2);
+            max-height: calc(100vh - var(--top-h)); overflow-y: auto; }
+  .hr-burger:checked ~ .hr-nav { display: flex; }
+  .hr-menu > summary { height: 48px; padding: 0 20px; border-bottom: 0; border-left: 3px solid transparent; }
+  .hr-menu-active > summary { border-left-color: var(--orange); }
+  .hr-menu > ul { position: static; border: 0; box-shadow: none; background: var(--navy-2); color: var(--cream);
+                  padding: 4px 0 8px; }
+  .hr-menu > ul a { padding: 9px 20px 9px 36px; }
+  .hr-menu > ul a:hover { background: var(--navy); }
+  .hr-support { height: 48px; padding: 0 20px; margin: 0; border-bottom: 0; }
+}
+
+/* ---- phone: tighter chrome, tables zoomed out ---- */
+@media (max-width: 760px) {
+  .hr-title { padding: 12px 14px 8px; }
+  .hr-title h1 { font-size: 19px; }
+  .hr-main { padding: 0 6px; }
+  .hr-foot { padding: 8px 14px; }
+
+  /* The tables are laid out for a desktop column set: fixed pixel widths, and
+     the sticky Rank + Team columns alone are 260px -- 72% of a phone. Zoom the
+     table out, and cap any sticky column so the scrolling part of the table
+     gets more than a third of the screen. The cap is on max-width only, so a
+     narrow sticky column (Rank) keeps its size and only the wide one (Team)
+     gives. reactable marks sticky cells and headers with .rt-sticky. */
+  .hr-main > .html-widget { zoom: 0.7; }
+  /* reactable sets min-width inline too, and min beats max, so both go. */
+  .hr-main .rt-sticky { max-width: 140px !important; min-width: 0 !important; }
+}
+

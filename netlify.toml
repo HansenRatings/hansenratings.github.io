@@ -1,0 +1,7 @@
+# Netlify publishes the rebuilt site in site/ (written by
+# hansenratings-staging/build/build.R at the end of each weekly phase).
+# The root of the repo holds the pages the weekly R scripts publish; the
+# build reads those and re-wraps them. site/_redirects forwards every old
+# root URL to its new address.
+[build]
+  publish = "site"

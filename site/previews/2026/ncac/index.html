@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 NCAC Preview · Hansen Ratings</title>
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/Raleway-Regular.ttf"  as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-Bold.ttf"     as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+
+</head>
+<body>
+<header class="hr-top">
+  <a class="hr-brand" href="/"><b>Hansen</b>Ratings</a>
+  <input type="checkbox" id="hr-burger" class="hr-burger" hidden>
+  <label for="hr-burger" class="hr-burger-btn" aria-label="Menu"><span></span></label>
+  <nav class="hr-nav" aria-label="Site"><details class="hr-menu"><summary>Ratings</summary><ul><li><a href="/ratings/predictive/2026/">Predictive Ratings</a></li><li><a href="/ratings/resume/2026/">Résumé Rankings</a></li><li><a href="/ratings/schedule-strength/2026/">Schedule Strength</a></li><li><a href="/ratings/coaching/2026/">Coaching Grades</a></li><li><a href="https://d3datacast.com/npi/fb/" target="_blank" rel="noopener">NPI (D3Datacast)</a></li></ul></details><details class="hr-menu"><summary>Projections</summary><ul><li><a href="/projections/2026/">Game Projections</a></li><li><a href="/simulation/2026/">Season Simulation</a></li><li><a href="/simulation/2026/scenarios/">Season Scenarios</a></li></ul></details><details class="hr-menu"><summary>Leaderboards</summary><ul><li><a href="/leaderboards/2026/passing/">Passing</a></li><li><a href="/leaderboards/2026/receiving/">Receiving</a></li><li><a href="/leaderboards/2026/rushing/">Rushing</a></li><li><a href="/leaderboards/2026/blocking/">Blocking</a></li><li><a href="/leaderboards/2026/defense/">Defense</a></li><li><a href="/leaderboards/2026/returns/">Returns</a></li><li><a href="/leaderboards/2026/punting/">Punting</a></li><li><a href="/leaderboards/2026/kickoffs/">Kickoffs</a></li><li><a href="/leaderboards/2026/place-kicking/">Place Kicking</a></li></ul></details><details class="hr-menu"><summary>Awards</summary><ul><li><a href="/awards/2026/team-of-the-week/">Team of the Week</a></li><li><a href="/awards/2025/">All-Americans</a></li><li><a href="/awards/2025/region-1/">Region 1</a></li><li><a href="/awards/2025/region-2/">Region 2</a></li><li><a href="/awards/2025/region-3/">Region 3</a></li><li><a href="/awards/2025/region-4/">Region 4</a></li><li><a href="/awards/2025/region-5/">Region 5</a></li><li><a href="/awards/2025/region-6/">Region 6</a></li></ul></details><details class="hr-menu hr-menu-active"><summary>Preseason</summary><ul><li><a href="/previews/2026/">Conference Previews</a></li><li><a href="/returning-production/2026/">Returning Production</a></li></ul></details><details class="hr-menu"><summary>About</summary><ul><li><a href="/ratings-explained/">Ratings Explanation</a></li><li><a href="/glossary/">Glossary</a></li></ul></details><a class="hr-support" href="https://buymeacoffee.com/HansenRatings" target="_blank" rel="noopener">Support</a></nav>
+</header>
+<div class="hr-page">
+  <div class="hr-title">
+    <h1>DIII Football Conference Previews</h1>
+    
+    <nav class="hr-switch" aria-label="Season"><span class="hr-switch-label">Season</span><a aria-current="page">2026</a></nav><nav class="hr-switch" aria-label="Conference"><span class="hr-switch-label">Conference</span><a href="/previews/2026/arc/">ARC</a><a href="/previews/2026/asc/">ASC</a><a href="/previews/2026/cc/">CC</a><a href="/previews/2026/cciw/">CCIW</a><a href="/previews/2026/cne/">CNE</a><a href="/previews/2026/e8/">E8</a><a href="/previews/2026/hcac/">HCAC</a><a href="/previews/2026/land/">LAND</a><a href="/previews/2026/ll/">LL</a><a href="/previews/2026/mac/">MAC</a><a href="/previews/2026/mascac/">MASCAC</a><a href="/previews/2026/miaa/">MIAA</a><a href="/previews/2026/miac/">MIAC</a><a href="/previews/2026/mwc/">MWC</a><a href="/previews/2026/nacc/">NACC</a><a aria-current="page">NCAC</a><a href="/previews/2026/nescac/">NESCAC</a><a href="/previews/2026/newmac/">NEWMAC</a><a href="/previews/2026/njac/">NJAC</a><a href="/previews/2026/nwc/">NWC</a><a href="/previews/2026/oac/">OAC</a><a href="/previews/2026/odac/">ODAC</a><a href="/previews/2026/pac/">PAC</a><a href="/previews/2026/saa/">SAA</a><a href="/previews/2026/scac/">SCAC</a><a href="/previews/2026/sciac/">SCIAC</a><a href="/previews/2026/umac/">UMAC</a><a href="/previews/2026/usac/">USAC</a><a href="/previews/2026/wiac/">WIAC</a></nav>
+  </div>
+  <main class="hr-main">
+<div class="hr-sheet-wrap"><div class="hr-sheet-frame"><iframe class="hr-sheet" src="sheet.html" title="2026 NCAC Preview" scrolling="no"></iframe></div></div><script>(function(){var w=document.querySelector(".hr-sheet-wrap"),f=document.querySelector(".hr-sheet-frame");function fit(){f.style.setProperty("--k",((w.clientWidth-2)/852).toFixed(4));}fit();addEventListener("resize",fit);})();</script>
+  </main>
+  <footer class="hr-foot">
+    <span>&copy; Hansen Ratings</span>
+  </footer>
+</div>
+<script>
+// One dropdown open at a time. The others close on pointerdown -- BEFORE the
+// click toggles the new one -- so there is never a frame with two open, which
+// read as a flicker when switching menus. Everything else about the menu is CSS.
+(function () {
+  var all = function () { return document.querySelectorAll(".hr-nav details[open]"); };
+  document.querySelectorAll(".hr-nav details > summary").forEach(function (s) {
+    s.addEventListener("pointerdown", function () {
+      all().forEach(function (o) { if (o !== s.parentNode) o.removeAttribute("open"); });
+    });
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".hr-nav")) return;
+    all().forEach(function (o) { o.removeAttribute("open"); });
+  });
+})();
+// Sticky columns. reactable writes each sticky cell's `left` inline from the
+// column's configured width, but the phone stylesheet caps wide sticky columns
+// at 140px, so the second sticky column would pin 60px short of the first.
+// Re-derive every left offset from the widths actually rendered, whenever the
+// table (re)renders or the viewport changes.
+(function () {
+  var pending = false;
+  // Rendered widths are fractional (a 62.5px Rank column is common), and
+  // offsetWidth rounds, so read the computed width instead. It is unzoomed,
+  // like `left`, unlike getBoundingClientRect.
+  function width(c) {
+    var s = getComputedStyle(c), w = parseFloat(s.width);
+    if (s.boxSizing !== "border-box")
+      w += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) +
+           parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+    return w;
+  }
+  // Each sticky cell is composited as its own layer, and where two layers meet
+  // at a fractional device pixel their edges can snap apart, showing a hairline
+  // of whatever scrolled underneath. So the second sticky cell onward starts
+  // 1px inside its predecessor: the cells have opaque backgrounds and no side
+  // borders, so the overlap is invisible and there is no seam to snap.
+  function fix() {
+    pending = false;
+    document.querySelectorAll(".hr-main .rt-tr").forEach(function (tr) {
+      var x = 0, n = 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        if (!c.classList.contains("rt-sticky") || !c.style.left) return;
+        var want = (n ? x - 1 : 0) + "px";
+        if (c.style.left !== want) c.style.left = want;
+        x += width(c); n++;
+      });
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fix); } }
+  var w = document.querySelector(".hr-main");
+  if (!w || !("MutationObserver" in window)) return;
+  new MutationObserver(queue).observe(w, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
+  window.addEventListener("resize", queue);
+  window.addEventListener("load", queue);
+  queue();
+})();
+</script>
+</body>
+</html>
+
