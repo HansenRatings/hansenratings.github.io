@@ -1,0 +1,41 @@
+# Publish site/ to GitHub Pages on every push to main.
+#
+# site/ is written by hansenratings-staging/build/build.R at the end of each
+# weekly phase; this just uploads that folder. No R, no build step, so a
+# deploy is a few seconds and there is nothing to meter.
+#
+# One-time settings in the repo (Settings -> Pages):
+#   Source: GitHub Actions
+#   Custom domain: hansenratings.com   (site/CNAME is written by the build)
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer push supersedes one still queued.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
