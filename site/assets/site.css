@@ -79,6 +79,12 @@ a { color: inherit; }
 .hr-switch a { text-decoration: none; padding: 2px 8px; border-radius: 3px; color: var(--ink-2); }
 .hr-switch a[href]:hover { background: var(--cream); color: var(--ink); }
 .hr-switch a[aria-current] { background: var(--navy); color: var(--cream); font-weight: 600; }
+/* A row that wraps becomes a dropdown (the script toggles .hr-switch-menu). */
+.hr-switch-select { display: none; font: inherit; font-size: 14px; font-weight: 600; padding: 2px 6px;
+                    border: 1px solid var(--navy); border-radius: 3px; background: var(--navy);
+                    color: var(--cream); max-width: 100%; }
+.hr-switch.hr-switch-menu a { display: none; }
+.hr-switch.hr-switch-menu .hr-switch-select { display: inline-block; }
 
 /* ---- content ---- */
 /* The table is the only thing that scrolls; header, title and footer stay put.
