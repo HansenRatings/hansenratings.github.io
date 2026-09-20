@@ -94,6 +94,9 @@ a { color: inherit; }
 .hr-main > .html-widget { flex: 1 1 auto; min-height: 0; height: auto !important; }
 .hr-main .Reactable { height: 100%; }
 .hr-main .rt-table { height: 100%; }
+/* Headers wrap at spaces only ("Game Score" may, "AdjEff" may not); the
+   script in the page shell widens a column whose header would not fit. */
+.hr-main .rt-th, .hr-main .rt-th-inner { overflow-wrap: normal; word-break: normal; }
 .hr-prose { padding: 4px 0 40px; font-size: 16px; line-height: 1.6; }
 .hr-prose img { max-width: 100%; height: auto; }
 .hr-prose h2 { font-size: 20px; font-weight: 700; margin: 28px 0 10px; }
