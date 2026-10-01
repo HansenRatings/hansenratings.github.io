@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hansen Ratings - 2026 Matchup Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://cdn.buymeacoffee.com/uploads/profile_pictures/2023/03/47N2sKRqUDlGguLf.png@300w_0e.png">
+<!--
+  This file exists for the same reason "2026 Season Scenarios.html" does: it
+  holds the deployed address of a Shiny app, which build.R extracts to write
+  /projections/2026/matchup/.
+
+  Two rules follow from how that extraction works. It takes the FIRST match in
+  the file, and it keys on the opening of the iframe tag up to the src quote:
+
+    1. src must stay the first attribute of the iframe tag.
+    2. nothing above the real tag may contain that opening sequence -- not even
+       inside a comment like this one. Spelling it out here once cost a build:
+       the pattern matched the comment and published src=")[^" as the URL.
+
+  Everything else here is just a usable standalone page; the site frames the
+  app itself through write_embed_page().
+
+  That companion file is a Microsoft Word export and carries ~47KB of Word
+  markup from before the site build existed. None of it is load-bearing, so it
+  is not reproduced here.
+-->
+<style>
+  html, body { height: 100%; margin: 0; background: #1E2A3A; color: #F7E9DC;
+               font-family: Raleway, "Segoe UI", Arial, sans-serif; }
+  .wrap { display: flex; flex-direction: column; height: 100%; padding: 16px; box-sizing: border-box; }
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+  p  { font-size: 13px; color: #8FA3B8; margin: 0 0 12px; }
+  .responsive-container { flex: 1 1 auto; min-height: 0; display: flex; }
+  .reactable-container  { flex: 1 1 auto; min-height: 0; display: flex; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>2026 DIII Football Matchup Preview</h1>
+<p>Pick any two teams and where the game is played.</p>
+<div class="responsive-container">
+<div class="reactable-container">
+<iframe src="https://loghan.shinyapps.io/2026-Matchup-Preview/" title="2026 Matchup Preview" style="width:100%;height:100%;min-height:600px;border:0;display:block;" allow="fullscreen" loading="lazy"></iframe>
+</div>
+</div>
+</div>
+</body>
+</html>
