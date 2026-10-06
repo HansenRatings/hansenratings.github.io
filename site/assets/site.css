@@ -60,6 +60,10 @@ a { color: inherit; }
    they stay on screen. */
 .hr-menu:nth-last-of-type(-n+2) > ul { left: auto; right: 0; }
 .hr-menu > ul a { display: block; padding: 8px 16px; text-decoration: none; font-size: 15px; }
+/* A top-level section with no list (Teams): a heading that is itself the link. */
+.hr-menu-link { display: flex; align-items: center; height: var(--top-h); padding: 0 13px; font-weight: 600;
+                font-size: 15px; color: inherit; text-decoration: none; border-bottom: 3px solid transparent; }
+.hr-menu-link:hover, .hr-menu-link.hr-menu-active { border-bottom-color: var(--orange); }
 .hr-menu > ul a:hover, .hr-menu > ul a:focus-visible { background: var(--cream); outline: none; }
 .hr-support { display: flex; align-items: center; margin-left: 6px; padding: 0 14px 0 12px;
               color: var(--orange); font-weight: 700; font-size: 15px; text-decoration: none;
@@ -256,7 +260,7 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
    The full header -- wordmark, six menus, Support -- needs 919px. Below that
    the last menu's list and the Support link ran off the right edge on tablets
    and half-screen windows, so the hamburger takes over well before then. */
-@media (max-width: 980px) {
+@media (max-width: 1040px) {
   .hr-top { padding-right: 8px; }
   .hr-burger-btn { display: flex; align-items: center; margin-left: auto; width: 44px; height: var(--top-h);
                    cursor: pointer; justify-content: center; }
@@ -270,6 +274,8 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
   .hr-burger:checked ~ .hr-nav { display: flex; }
   .hr-menu > summary { height: 48px; padding: 0 20px; border-bottom: 0; border-left: 3px solid transparent; }
   .hr-menu-active > summary { border-left-color: var(--orange); }
+  .hr-menu-link { height: 48px; padding: 0 20px; border-bottom: 0; border-left: 3px solid transparent; }
+  .hr-menu-link.hr-menu-active { border-left-color: var(--orange); }
   .hr-menu > ul { position: static; border: 0; box-shadow: none; background: var(--navy-2); color: var(--cream);
                   padding: 4px 0 8px; }
   .hr-menu > ul a { padding: 9px 20px 9px 36px; }
@@ -293,5 +299,88 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
   .hr-main > .html-widget { zoom: 0.7; }
   /* reactable sets min-width inline too, and min beats max, so both go. */
   .hr-main .rt-sticky { max-width: 140px !important; min-width: 0 !important; }
+}
+
+/* ---- team scouting reports (build/teams.R) ---- */
+.hr-team { max-width: 1060px; padding: 4px 0 40px; }
+.tm-jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 4px; }
+.tm-jump a { font-size: 13px; padding: 4px 10px; border: 1px solid var(--rule); border-radius: 4px;
+             color: var(--ink); text-decoration: none; }
+.tm-jump a:hover { background: var(--cream); }
+.hr-team section { margin-top: 22px; }
+.hr-team h2 { font-size: 19px; font-weight: 700; margin: 0 0 10px; padding-bottom: 4px;
+              border-bottom: 2px solid var(--orange); }
+.hr-team h3 { font-size: 14px; font-weight: 700; letter-spacing: .03em; margin: 16px 0 6px; color: var(--navy); }
+.tm-ident { display: flex; align-items: center; gap: 18px; border-left: 6px solid var(--navy);
+            padding: 6px 0 6px 16px; margin: 4px 0 6px; }
+.tm-ident img { flex: 0 0 64px; border-radius: 6px; }
+.tm-chips { display: flex; flex-wrap: wrap; gap: 8px 26px; }
+.tm-lbl { display: block; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); }
+.tm-chip b { font-size: 20px; font-weight: 700; color: var(--ink); }
+.tm-rk { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.tm-chip .tm-rk { font-size: 13px; }
+.tm-fact { margin: 8px 0 0; }
+.tm-fact b { font-size: 16px; font-weight: 700; }
+.tm-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 0 32px; align-items: start; }
+.tm-units { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; align-items: start; }
+.tm-x { overflow-x: auto; }
+.tm-tbl { border-collapse: collapse; font-size: 13.5px; min-width: 100%; }
+.tm-tbl th, .tm-tbl td { padding: 5px 9px; text-align: right; white-space: nowrap;
+                         border-bottom: 1px solid var(--rule); }
+.tm-tbl thead th { font-size: 12px; font-weight: 600; color: var(--ink-2); border-bottom: 1px solid var(--ink-2); }
+.tm-tbl .tm-p, .tm-tbl tbody th { text-align: left; }
+.tm-tbl tbody th { font-weight: 600; }
+.tm-tbl .tm-p b { font-weight: 600; }
+.tm-tbl .tm-p small { display: block; font-size: 11.5px; color: var(--ink-2); }
+.tm-tbl .tm-p a { color: var(--ink); }
+.tm-stats td { min-width: 96px; font-weight: 600; }
+.tm-kv td { min-width: 90px; font-weight: 600; }
+.tm-tbd { color: var(--rule); font-weight: 400; }
+.tm-sch { min-width: 0; }
+.tm-sch .tm-future td { color: var(--ink-2); }
+.tm-empty { font-size: 13px; color: var(--ink-2); font-style: italic; }
+/* schedule beside the base formations */
+.tm-sumgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 32px; align-items: start; }
+.fm h3 { margin-bottom: 2px; }
+.fm-name { color: var(--ink); margin-left: 6px; }
+.fm-how { font-size: 12px; color: var(--ink-2); margin: 0 0 6px; }
+.fm-svg { display: block; width: 100%; height: auto; background: var(--ground);
+          border: 1px solid var(--rule); border-radius: 4px; }
+.fm-yd, .fm-hash { stroke: var(--orange); stroke-width: 1.4; }
+.fm-num { fill: #FDF1E8; stroke: var(--orange); stroke-width: 1.2; }
+.fm-los { stroke: var(--navy); stroke-width: 1.8; }
+.fm-p circle { fill: #FDF1E8; stroke: var(--navy); stroke-width: 2.6; }
+.fm-p text { font-family: Raleway, sans-serif; font-weight: 700; font-size: 15px;
+             fill: var(--navy); text-anchor: middle; }
+/* table titles sit in the header row, level with the column heads */
+.tm-tbl thead th.tm-ttl { font-size: 14px; font-weight: 700; letter-spacing: .03em; color: var(--navy); text-align: left; }
+.tm-grid { margin-top: 10px; }
+/* depth chart and special-teams units: groups flow down two columns */
+.hr-team h3.dc-head { font-size: 16px; margin-top: 22px; }
+.dc-flow { columns: 2; column-gap: 32px; }
+.dc-grp { break-inside: avoid; display: inline-block; width: 100%; }
+.dc-grp h3 { margin-top: 12px; }
+.tm-tbl.dc thead th.dc-g { text-align: center; color: var(--navy); border-bottom: 1px solid var(--rule); }
+.tm-tbl.dc-narrow { min-width: 0; }
+.tm-tbl.dc th, .tm-tbl.dc td { padding: 5px 7px; }
+.tm-tbl.dc .dc-no { width: 26px; padding-left: 6px; font-weight: 700; color: var(--navy); }
+.tm-tbl.dc tbody tr.dc-s td:first-child { box-shadow: inset 3px 0 0 var(--orange); }
+.tm-tbl.dc tbody tr.dc-s + tr.dc-b td { border-top: 1px dashed var(--ink-2); }
+.tm-tbl.dc tr.dc-b .tm-p b { font-weight: 500; }
+@media (max-width: 1000px) { .dc-flow { columns: 1; } }
+/* the Teams index */
+.ti { columns: 4 200px; column-gap: 28px; list-style: none; margin: 8px 0 0; padding: 0; }
+.ti li { padding: 3px 0; break-inside: avoid; }
+.ti a { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none;
+            font-weight: 600; font-size: 14.5px; }
+.ti a:hover span { text-decoration: underline; }
+.ti img { border-radius: 3px; flex: 0 0 22px; }
+.ti small { display: block; margin-left: 30px; font-size: 11.5px; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .tm-grid, .tm-units, .tm-sumgrid { grid-template-columns: 1fr; }
+  .dc-flow { columns: 1; }
+  .tm-ident { gap: 12px; padding-left: 12px; }
+  .tm-ident img { flex-basis: 48px; width: 48px; height: 48px; }
+  .tm-chip b { font-size: 17px; }
 }
 
