@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 SCAC Preview · Hansen Ratings</title>
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/Raleway-Regular.ttf"  as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-Bold.ttf"     as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+
+</head>
+<body>
+<header class="hr-top">
+  <a class="hr-brand" href="/"><b>Hansen</b>Ratings</a>
+  <input type="checkbox" id="hr-burger" class="hr-burger" hidden>
+  <label for="hr-burger" class="hr-burger-btn" aria-label="Menu"><span></span></label>
+  <nav class="hr-nav" aria-label="Site"><details class="hr-menu"><summary>Ratings</summary><ul><li><a href="/ratings/predictive/2026/">Predictive Ratings</a></li><li><a href="/ratings/resume/2026/">Résumé Rankings</a></li><li><a href="/ratings/schedule-strength/2026/">Schedule Strength</a></li><li><a href="/ratings/coaching/2026/">Coaching Grades</a></li><li><a href="https://d3datacast.com/npi/fb/" target="_blank" rel="noopener">NPI (D3Datacast)</a></li></ul></details><details class="hr-menu"><summary>Projections</summary><ul><li><a href="/projections/2026/">Game Projections</a></li><li><a href="/projections/2026/matchup/">Matchup Preview</a></li><li><a href="/simulation/2026/">Season Simulation</a></li><li><a href="/simulation/2026/scenarios/">Season Scenarios</a></li></ul></details><details class="hr-menu"><summary>Leaderboards</summary><ul><li><a href="/leaderboards/2026/player/passing/">Player Stats</a></li><li><a href="/leaderboards/2026/team/overall/">Team Stats</a></li></ul></details><details class="hr-menu"><summary>Awards</summary><ul><li><a href="/awards/2026/team-of-the-week/">Team of the Week</a></li><li><a href="/awards/2025/">All-Americans</a></li><li><a href="/awards/2025/region-1/">Region 1</a></li><li><a href="/awards/2025/region-2/">Region 2</a></li><li><a href="/awards/2025/region-3/">Region 3</a></li><li><a href="/awards/2025/region-4/">Region 4</a></li><li><a href="/awards/2025/region-5/">Region 5</a></li><li><a href="/awards/2025/region-6/">Region 6</a></li></ul></details><a class="hr-menu-link" href="/teams/2026/">Teams</a><details class="hr-menu hr-menu-active"><summary>Preseason</summary><ul><li><a href="/previews/2026/">Conference Previews</a></li><li><a href="/returning-production/2026/">Returning Production</a></li></ul></details><details class="hr-menu"><summary>About</summary><ul><li><a href="/ratings-explained/">Ratings Explanation</a></li><li><a href="/glossary/">Glossary</a></li></ul></details><a class="hr-support" href="https://buymeacoffee.com/HansenRatings" target="_blank" rel="noopener">Support</a></nav>
+</header>
+<div class="hr-page">
+  <div class="hr-title">
+    <h1>DIII Football Conference Previews</h1>
+    
+    <nav class="hr-switch" aria-label="Season"><span class="hr-switch-label">Season</span><a aria-current="page">2026</a></nav><nav class="hr-switch" aria-label="Conference"><span class="hr-switch-label">Conference</span><a href="/previews/2026/arc/">ARC</a><a href="/previews/2026/asc/">ASC</a><a href="/previews/2026/cc/">CC</a><a href="/previews/2026/cciw/">CCIW</a><a href="/previews/2026/cne/">CNE</a><a href="/previews/2026/e8/">E8</a><a href="/previews/2026/hcac/">HCAC</a><a href="/previews/2026/land/">LAND</a><a href="/previews/2026/ll/">LL</a><a href="/previews/2026/mac/">MAC</a><a href="/previews/2026/mascac/">MASCAC</a><a href="/previews/2026/miaa/">MIAA</a><a href="/previews/2026/miac/">MIAC</a><a href="/previews/2026/mwc/">MWC</a><a href="/previews/2026/nacc/">NACC</a><a href="/previews/2026/ncac/">NCAC</a><a href="/previews/2026/nescac/">NESCAC</a><a href="/previews/2026/newmac/">NEWMAC</a><a href="/previews/2026/njac/">NJAC</a><a href="/previews/2026/nwc/">NWC</a><a href="/previews/2026/oac/">OAC</a><a href="/previews/2026/odac/">ODAC</a><a href="/previews/2026/pac/">PAC</a><a href="/previews/2026/saa/">SAA</a><a aria-current="page">SCAC</a><a href="/previews/2026/sciac/">SCIAC</a><a href="/previews/2026/umac/">UMAC</a><a href="/previews/2026/usac/">USAC</a><a href="/previews/2026/wiac/">WIAC</a></nav>
+  </div>
+  <main class="hr-main">
+<div class="hr-sheet-wrap"><div class="hr-sheet-frame"><iframe class="hr-sheet" src="sheet.html" title="2026 SCAC Preview" scrolling="no"></iframe></div></div><script>(function(){var w=document.querySelector(".hr-sheet-wrap"),f=document.querySelector(".hr-sheet-frame");function fit(){var kw=(w.clientWidth-2)/852,kh=(w.clientHeight-40)/1102;f.style.setProperty("--k",Math.min(kw,Math.max(kh,1)).toFixed(4));}fit();addEventListener("resize",fit);})();</script>
+  </main>
+  <footer class="hr-foot">
+    <span>&copy; Hansen Ratings</span>
+  </footer>
+</div>
+<script>
+// One dropdown open at a time. The others close on pointerdown -- BEFORE the
+// click toggles the new one -- so there is never a frame with two open, which
+// read as a flicker when switching menus. Everything else about the menu is CSS.
+(function () {
+  var all = function () { return document.querySelectorAll(".hr-nav details[open]"); };
+  document.querySelectorAll(".hr-nav details > summary").forEach(function (s) {
+    s.addEventListener("pointerdown", function () {
+      all().forEach(function (o) { if (o !== s.parentNode) o.removeAttribute("open"); });
+    });
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".hr-nav")) return;
+    all().forEach(function (o) { o.removeAttribute("open"); });
+  });
+})();
+// Switcher rows (Stat, Week, Conference ...). When the links no longer fit on
+// one line, the row becomes a dropdown: same items, current one selected,
+// choosing navigates. Re-checked on resize, measuring the links each time.
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll(".hr-switch"));
+  rows.forEach(function (nav) {
+    var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+    if (links.length < 2) return;
+    var sel = document.createElement("select");
+    sel.className = "hr-switch-select";
+    sel.setAttribute("aria-label", nav.getAttribute("aria-label") || "");
+    links.forEach(function (a) {
+      var o = document.createElement("option");
+      o.textContent = a.textContent; o.value = a.getAttribute("href") || "";
+      if (a.hasAttribute("aria-current")) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener("change", function () { if (sel.value) location.href = sel.value; });
+    nav.appendChild(sel);
+    nav._links = links;
+  });
+  var pending = false;
+  function fit() {
+    pending = false;
+    rows.forEach(function (nav) {
+      if (!nav._links) return;
+      nav.classList.remove("hr-switch-menu");
+      var top = nav._links[0].offsetTop;
+      if (nav._links.some(function (a) { return a.offsetTop > top; })) nav.classList.add("hr-switch-menu");
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fit); } }
+  window.addEventListener("resize", queue);
+  fit();
+})();
+// Column headers never break inside a word. reactable lets a header wrap
+// anywhere (overflow-wrap: break-word), so "AdjEff" in a 60px column came
+// out as "AdjEf / f". The stylesheet now breaks only at spaces, and this
+// widens any column whose header's longest word still would not fit -- every
+// cell in the column, plus the group header above it by the same amount.
+// Idempotent, and re-run whenever reactable re-renders (a sort resets the
+// inline widths), through the same observer as the sticky fix below.
+(function () {
+  var ctx = document.createElement("canvas").getContext("2d");
+  function need(th) {
+    var inner = th.querySelector(".rt-th-inner") || th, s = getComputedStyle(inner), w = 0;
+    ctx.font = s.font;
+    var text = (inner.textContent || "").trim();
+    // a header styled nowrap (the leaderboards) needs its whole text on one line
+    var parts = /^(nowrap|pre)$/.test(getComputedStyle(th).whiteSpace) ? [text] : text.split(/\s+/);
+    parts.forEach(function (t) { w = Math.max(w, ctx.measureText(t).width); });
+    if (th.querySelector(".rt-sort-left, .rt-sort-right")) w += 14;
+    return Math.ceil(w + parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) + 2);
+  }
+  function cur(c) { return parseFloat(c.style.minWidth) || c.getBoundingClientRect().width; }
+  function grow(c, d) { var w = cur(c) + d; c.style.minWidth = w + "px"; c.style.width = w + "px"; }
+  // reactable gives every row, and the head and body wrappers, an inline
+  // min-width equal to the sum of its columns. Growing the cells without
+  // growing that left them overhanging their own row, and the hover and
+  // stripe colours paint the ROW -- so on a table scrolled to its right edge
+  // the last column showed a blank strip as wide as the growth (26px on Pass
+  // Offense, 2026-10-04, Logan). This resyncs each row to its cells.
+  //
+  // Declared widths, not rendered ones: cells flex-grow to fill a wide window,
+  // so a rendered sum would pin rows at the wide width and stop them shrinking
+  // when the window narrows. And it only ever RAISES a min-width, so it can
+  // fix an overhang but never shrink anything reactable laid out itself.
+  function base(c) { return parseFloat(c.style.width) || parseFloat(c.style.minWidth) || 0; }
+  function syncRows(table) {
+    var widest = 0;
+    table.querySelectorAll(".rt-tr").forEach(function (tr) {
+      var w = 0, ok = tr.children.length > 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        var b = base(c); if (!b) ok = false; w += b;
+      });
+      if (!ok) return;   // a row with an unsized cell is not one reactable sized
+      w = Math.ceil(w);
+      if (w > (parseFloat(tr.style.minWidth) || 0)) tr.style.minWidth = w + "px";
+      if (w > widest) widest = w;
+    });
+    if (widest) table.querySelectorAll(".rt-thead, .rt-tbody").forEach(function (s) {
+      if (widest > (parseFloat(s.style.minWidth) || 0)) s.style.minWidth = widest + "px";
+    });
+  }
+  window.hrFitHeaders = function () {
+    document.querySelectorAll(".hr-main .rt-table").forEach(function (table) {
+      var hdr = table.querySelector(".rt-tr-header"); if (!hdr) return;
+      var delta = Array.prototype.map.call(hdr.children, function (th) {
+        var d = need(th) - cur(th); return d > 0 ? d : 0;
+      });
+      if (!delta.some(function (d) { return d; })) return;
+      table.querySelectorAll(".rt-tr-header, .rt-tr-filters, .rt-tbody .rt-tr").forEach(function (tr) {
+        Array.prototype.forEach.call(tr.children, function (c, i) { if (delta[i]) grow(c, delta[i]); });
+      });
+      var g = table.querySelector(".rt-tr-group-header"), i = 0;
+      if (g) Array.prototype.forEach.call(g.children, function (c) {
+        var span = parseInt(c.getAttribute("aria-colspan") || "1", 10), d = 0;
+        for (var k = 0; k < span; k++) d += delta[i + k] || 0;
+        i += span;
+        if (d) grow(c, d);
+      });
+      syncRows(table);
+    });
+  };
+})();
+// Sticky columns. reactable writes each sticky cell's `left` inline from the
+// column's configured width, but the phone stylesheet caps wide sticky columns
+// at 140px, so the second sticky column would pin 60px short of the first.
+// Re-derive every left offset from the widths actually rendered, whenever the
+// table (re)renders or the viewport changes.
+(function () {
+  var pending = false;
+  // Rendered widths are fractional (a 62.5px Rank column is common), and
+  // offsetWidth rounds, so read the computed width instead. It is unzoomed,
+  // like `left`, unlike getBoundingClientRect.
+  function width(c) {
+    var s = getComputedStyle(c), w = parseFloat(s.width);
+    if (s.boxSizing !== "border-box")
+      w += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) +
+           parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+    return w;
+  }
+  // Each sticky cell is composited as its own layer, and where two layers meet
+  // at a fractional device pixel their edges can snap apart, showing a hairline
+  // of whatever scrolled underneath. So the second sticky cell onward starts
+  // 1px inside its predecessor: the cells have opaque backgrounds and no side
+  // borders, so the overlap is invisible and there is no seam to snap.
+  function fix() {
+    pending = false;
+    if (window.hrFitHeaders) window.hrFitHeaders();   // widths first, then the offsets
+    document.querySelectorAll(".hr-main .rt-tr").forEach(function (tr) {
+      var x = 0, n = 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        if (!c.classList.contains("rt-sticky") || !c.style.left) return;
+        var want = (n ? x - 1 : 0) + "px";
+        if (c.style.left !== want) c.style.left = want;
+        x += width(c); n++;
+      });
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fix); } }
+  var w = document.querySelector(".hr-main");
+  if (!w || !("MutationObserver" in window)) return;
+  new MutationObserver(queue).observe(w, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
+  window.addEventListener("resize", queue);
+  window.addEventListener("load", queue);
+  queue();
+})();
+</script>
+</body>
+</html>
+
