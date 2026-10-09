@@ -338,6 +338,8 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tm-tbd { color: var(--rule); font-weight: 400; }
 .tm-sch { min-width: 0; }
 .tm-sch .tm-future td { color: var(--ink-2); }
+/* the opponent rank before the name, styled as the other ranks on the page */
+.tm-sch .tm-ork { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .tm-empty { font-size: 13px; color: var(--ink-2); font-style: italic; }
 /* schedule beside the base formations */
 .tm-sumgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 32px; align-items: start; }
