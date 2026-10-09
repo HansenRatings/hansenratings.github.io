@@ -365,7 +365,7 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tm-tbl.dc thead th.dc-g { text-align: center; color: var(--navy); border-bottom: 1px solid var(--rule); }
 .tm-tbl.dc-narrow { min-width: 0; }
 .tm-tbl.dc th, .tm-tbl.dc td { padding: 5px 7px; }
-.tm-tbl.dc .dc-no { width: 26px; padding-left: 6px; font-weight: 700; color: var(--navy); }
+.tm-tbl .dc-no { width: 26px; padding-left: 6px; font-weight: 700; color: var(--navy); }
 .tm-tbl.dc tbody tr.dc-s td:first-child { box-shadow: inset 3px 0 0 var(--orange); }
 .tm-tbl.dc tbody tr.dc-s + tr.dc-b td { border-top: 1px dashed var(--ink-2); }
 .tm-tbl.dc tr.dc-b .tm-p b { font-weight: 500; }
