@@ -101,6 +101,11 @@ a { color: inherit; }
 /* Headers wrap at spaces only ("Game Score" may, "AdjEff" may not); the
    script in the page shell widens a column whose header would not fit. */
 .hr-main .rt-th, .hr-main .rt-th-inner { overflow-wrap: normal; word-break: normal; }
+/* Team names in tables link to the team pages (team_link(), Web Team
+   Logos.R): table ink, underlined on hover, so a page of them still reads as
+   a table rather than a wall of links. */
+.hr-tlink { color: inherit; text-decoration: none; }
+.hr-tlink:hover, .hr-tlink:focus-visible { text-decoration: underline; text-underline-offset: 2px; }
 .hr-prose { padding: 4px 0 40px; font-size: 16px; line-height: 1.6; }
 .hr-prose img { max-width: 100%; height: auto; }
 .hr-prose h2 { font-size: 20px; font-weight: 700; margin: 28px 0 10px; }
