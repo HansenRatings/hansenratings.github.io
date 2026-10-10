@@ -1,0 +1,5 @@
+# Hansen Ratings -- every page may be crawled.
+User-agent: *
+Allow: /
+
+Sitemap: https://hansenratings.com/sitemap.xml
