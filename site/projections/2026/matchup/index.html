@@ -37,7 +37,12 @@
     
   </div>
   <main class="hr-main">
-<iframe class="hr-embed" src="https://loghan.shinyapps.io/2026-Matchup-Preview/" title="2026 Matchup Preview" allow="fullscreen" loading="lazy"></iframe>
+<iframe class="hr-embed" src="https://loghan.shinyapps.io/2026-Matchup-Preview/" title="2026 Matchup Preview" allow="fullscreen" loading="lazy"></iframe><script>(function () {
+  var f = document.querySelector(".hr-embed");
+  if (!f || !location.search) return;
+  var s = f.getAttribute("src");
+  f.src = s + (s.indexOf("?") < 0 ? "?" : "&") + location.search.slice(1);
+})();</script>
   </main>
   <footer class="hr-foot">
     <span>&copy; Hansen Ratings</span>
