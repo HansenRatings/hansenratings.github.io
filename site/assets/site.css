@@ -394,10 +394,15 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tz-txt, .tz-hd { font-family: Raleway, sans-serif; font-size: 20px; font-weight: 700; fill: var(--navy); text-anchor: middle; }
 .tz-hd { font-weight: 600; }
 .tz-ax { font-family: Raleway, sans-serif; font-size: 17px; font-weight: 600; fill: var(--ink-2); text-anchor: end; }
-.tz-key { font-size: 12px; color: var(--ink-2); margin: 2px 0 0; }
 .tm-tbl.tz-tbl { min-width: 0; }
 /* the view toggle: radio buttons styled as tabs, no script */
-.tz-r { position: absolute; opacity: 0; pointer-events: none; }
+/* The hidden radios sit at the top-left corner of the map block, inside the
+   scrolling area of the page. Positioned against the page instead, a click focused a radio
+   outside it and the browser scrolled the whole page to reach it -- the pinned
+   footer jumped up the window (2026-10-15). */
+.tz-maps { position: relative; }
+.tz-r { position: absolute; top: 0; left: 0; width: 1px; height: 1px; margin: 0; opacity: 0;
+        pointer-events: none; overflow: hidden; clip-path: inset(50%); }
 .tz-r + label { display: inline-block; font-size: 13px; padding: 4px 10px; margin: 0 6px 6px 0; border: 1px solid var(--rule);
                 border-radius: 4px; cursor: pointer; color: var(--ink); }
 .tz-r:checked + label { background: var(--navy); border-color: var(--navy); color: #fff; }
