@@ -375,11 +375,17 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tm-tbl.dc tbody tr.dc-s + tr.dc-b td { border-top: 1px dashed var(--ink-2); }
 .tm-tbl.dc tr.dc-b .tm-p b { font-weight: 500; }
 @media (max-width: 1000px) { .dc-flow { columns: 1; } }
-/* play-calling tendencies: the down & distance table beside the maps (offense); maps alone (defense) */
-.tz-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0 28px; align-items: start; }
-.tz-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px 28px; align-items: start; }
-#defense .tz-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+/* play-calling tendencies: the down & distance table across the full width,
+   the maps under it in two equal columns, the same size on both sides */
+.tz-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 28px; align-items: start; }
 .tz-pair h3 { margin-top: 6px; }
+.tm-tbl.tz-tbl { margin-bottom: 14px; }
+.tm-tbl.tz-tbl .tz-gs { border-left: 1px solid var(--rule); }
+/* group heads underlined as the column heads are; nothing under the empty corner */
+.tm-tbl.dc.tz-tbl thead th.dc-g { border-bottom: 1px solid var(--ink-2); }
+.tm-tbl.tz-tbl thead th.tz-blank { border-bottom: none; }
+.tz-adot { stroke: var(--navy); stroke-width: 5; stroke-dasharray: 16 9; }
+.tz-nadot { stroke: #8A8F98; stroke-width: 2.4; stroke-dasharray: 9 7; }
 .tz-svg { display: block; width: 100%; height: auto; }
 .tz-turf { fill: var(--ground); }
 .tz-yd, .tz-side { stroke: var(--orange); stroke-width: 1.4; stroke-opacity: .8; }
@@ -391,10 +397,14 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tz-ol circle { fill: #FDF1E8; stroke: var(--navy); stroke-width: 1.6; }
 .tz-ol text { font-family: Raleway, sans-serif; font-weight: 700; font-size: 11px; fill: var(--navy); text-anchor: middle; }
 .tz-lab { fill: #fff; stroke: var(--navy); stroke-width: 1.2; }
-.tz-txt, .tz-hd { font-family: Raleway, sans-serif; font-size: 20px; font-weight: 700; fill: var(--navy); text-anchor: middle; }
+.tz-t1, .tz-t2, .tz-hd { font-family: Raleway, sans-serif; font-size: 20px; font-weight: 700; fill: var(--navy); text-anchor: middle; }
+.tz-t1, .tz-t2 { font-size: 17px; }
+.tz-t2 { font-weight: 500; fill: var(--ink-2); }
 .tz-hd { font-weight: 600; }
 .tz-ax { font-family: Raleway, sans-serif; font-size: 17px; font-weight: 600; fill: var(--ink-2); text-anchor: end; }
-.tm-tbl.tz-tbl { min-width: 0; }
+.tz-al { font-family: Raleway, sans-serif; font-size: 17px; font-weight: 600; fill: var(--navy); }
+.tz-al.tz-av { font-size: 23px; font-weight: 700; }
+.tz-al-n { fill: #8A8F98; }
 /* the view toggle: radio buttons styled as tabs, no script */
 /* The hidden radios sit at the top-left corner of the map block, inside the
    scrolling area of the page. Positioned against the page instead, a click focused a radio
@@ -410,6 +420,28 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tz-v { display: none; }
 .tz-r-freq:checked ~ .tz-views .tz-v-freq, .tz-r-succ:checked ~ .tz-views .tz-v-succ,
 .tz-r-tay:checked ~ .tz-views .tz-v-tay { display: block; }
+/* the season trend: one chart, a toggle between metrics (same radios as the maps) */
+.tr-v { display: none; }
+.tr-r-rating:checked ~ .tr-views .tr-v-rating, .tr-r-adjeff:checked ~ .tr-views .tr-v-adjeff,
+.tr-r-adjo:checked ~ .tr-views .tr-v-adjo, .tr-r-adjd:checked ~ .tr-views .tr-v-adjd,
+.tr-r-elo:checked ~ .tr-views .tr-v-elo, .tr-r-eloplus:checked ~ .tr-views .tr-v-eloplus,
+.tr-r-movplus:checked ~ .tr-views .tr-v-movplus { display: block; }
+/* never shrunk past legibility: on a phone the chart scrolls sideways instead */
+.tr-views { overflow-x: auto; }
+.tr-svg { display: block; width: 100%; min-width: 620px; height: auto; }
+.tr-grid { stroke: var(--rule); stroke-width: 1; }
+.tr-zero { stroke: var(--ink-2); stroke-width: 1.4; }
+.tr-ytk, .tr-xtk, .tr-xtt, .tr-avgl { font-family: Raleway, sans-serif; font-size: 14px; fill: var(--ink-2); }
+.tr-ytk { text-anchor: end; }
+.tr-xtk, .tr-xtt { text-anchor: middle; }
+.tr-xtt { font-weight: 600; }
+.tr-avg { fill: none; stroke: #8A8F98; stroke-width: 2; stroke-dasharray: 7 6; }
+.tr-avgl { font-size: 12.5px; font-weight: 600; }
+.tr-line { fill: none; stroke: var(--navy); stroke-width: 3; stroke-linejoin: round; }
+.tr-pt { fill: var(--orange); stroke: var(--bg, #fff); stroke-width: 2; }
+.tr-val { font-family: Raleway, sans-serif; font-size: 14px; font-weight: 700; fill: var(--ink); text-anchor: middle; }
+.tr-pos { fill: rgb(245,141,66); }
+.tr-neg { fill: rgb(50,62,79); }
 /* the Teams index */
 .ti { columns: 4 200px; column-gap: 28px; list-style: none; margin: 8px 0 0; padding: 0; }
 .ti li { padding: 3px 0; break-inside: avoid; }
@@ -420,9 +452,8 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .ti small { display: block; margin-left: 30px; font-size: 11.5px; color: var(--ink-2); }
 @media (max-width: 760px) {
   .tm-grid, .tm-units, .tm-sumgrid { grid-template-columns: 1fr; }
-  /* minmax(0, ...): the zone table scrolls inside its own box instead of
-     widening the column, which pushed the maps off the screen */
-  .tz-grid, #defense .tz-pair { grid-template-columns: minmax(0, 1fr); }
+  /* minmax(0, ...): the maps shrink to the column instead of widening it */
+  .tz-pair { grid-template-columns: minmax(0, 1fr); }
   .dc-flow { columns: 1; }
   .tm-ident { gap: 12px; padding-left: 12px; }
   .tm-ident img { flex-basis: 48px; width: 48px; height: 48px; }
