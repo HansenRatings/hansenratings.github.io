@@ -426,9 +426,12 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .tr-r-adjo:checked ~ .tr-views .tr-v-adjo, .tr-r-adjd:checked ~ .tr-views .tr-v-adjd,
 .tr-r-elo:checked ~ .tr-views .tr-v-elo, .tr-r-eloplus:checked ~ .tr-views .tr-v-eloplus,
 .tr-r-movplus:checked ~ .tr-views .tr-v-movplus { display: block; }
-/* never shrunk past legibility: on a phone the chart scrolls sideways instead */
-.tr-views { overflow-x: auto; }
-.tr-svg { display: block; width: 100%; min-width: 620px; height: auto; }
+/* two drawings of each view (see trend_svg): the wide one capped at 760px, the
+   narrow one on phones, where it fits the screen instead of scrolling */
+.tr-svg { display: block; width: 100%; height: auto; }
+.tr-d { max-width: 760px; }
+.tr-m { display: none; }
+@media (max-width: 600px) { .tr-d { display: none; } .tr-m { display: block; } }
 .tr-grid { stroke: var(--rule); stroke-width: 1; }
 .tr-zero { stroke: var(--ink-2); stroke-width: 1.4; }
 .tr-ytk, .tr-xtk, .tr-xtt, .tr-avgl { font-family: Raleway, sans-serif; font-size: 14px; fill: var(--ink-2); }
