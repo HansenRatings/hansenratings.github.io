@@ -315,6 +315,7 @@ body.hr-flow .hr-page, body.hr-flow .hr-main { display: block; min-height: 0; }
 .hr-team section { margin-top: 22px; }
 .hr-team h2 { font-size: 19px; font-weight: 700; margin: 0 0 10px; padding-bottom: 4px;
               border-bottom: 2px solid var(--orange); }
+.tm-asof { margin: -4px 0 10px; font-size: 12.5px; font-style: italic; color: var(--ink-2); }
 .hr-team h3 { font-size: 14px; font-weight: 700; letter-spacing: .03em; margin: 16px 0 6px; color: var(--navy); }
 .tm-ident { display: flex; align-items: center; gap: 18px; border-left: 6px solid var(--navy);
             padding: 6px 0 6px 16px; margin: 4px 0 6px; }
