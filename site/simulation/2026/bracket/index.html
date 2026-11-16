@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 D3 Football Playoff Bracket · Interactive · Hansen Ratings</title>
+<meta name="description" content="2026 NCAA Division III football playoff bracket: every team's odds to advance through each round, from 10,000 simulations of the bracket.">
+<link rel="canonical" href="https://hansenratings.com/simulation/2026/bracket/">
+<meta property="og:site_name" content="Hansen Ratings">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2026 D3 Football Playoff Bracket · Interactive · Hansen Ratings">
+<meta property="og:description" content="2026 NCAA Division III football playoff bracket: every team's odds to advance through each round, from 10,000 simulations of the bracket.">
+<meta property="og:url" content="https://hansenratings.com/simulation/2026/bracket/">
+<meta property="og:image" content="https://hansenratings.com/assets/home/simulation.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2026 D3 Football Playoff Bracket · Interactive · Hansen Ratings">
+<meta name="twitter:description" content="2026 NCAA Division III football playoff bracket: every team's odds to advance through each round, from 10,000 simulations of the bracket.">
+<meta name="twitter:image" content="https://hansenratings.com/assets/home/simulation.jpg">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/Raleway-Regular.ttf"  as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Raleway-Bold.ttf"     as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=b4a13b032f">
+
+</head>
+<body class="hr-flow">
+<header class="hr-top">
+  <a class="hr-brand" href="/"><b>Hansen</b>Ratings</a>
+  <input type="checkbox" id="hr-burger" class="hr-burger" hidden>
+  <label for="hr-burger" class="hr-burger-btn" aria-label="Menu"><span></span></label>
+  <nav class="hr-nav" aria-label="Site"><details class="hr-menu"><summary>Ratings</summary><ul><li><a href="/ratings/predictive/2026/">Predictive Ratings</a></li><li><a href="/ratings/resume/2026/">Résumé Rankings</a></li><li><a href="/ratings/schedule-strength/2026/">Schedule Strength</a></li><li><a href="/ratings/coaching/2026/">Coaching Grades</a></li><li><a href="https://d3datacast.com/npi/fb/" target="_blank" rel="noopener">NPI (D3Datacast)</a></li></ul></details><details class="hr-menu hr-menu-active"><summary>Projections</summary><ul><li><a href="/projections/2026/">Game Projections</a></li><li><a href="/projections/2026/matchup/">Matchup Preview</a></li><li><a href="/simulation/2026/">Playoff Simulation</a></li><li><a href="/simulation/2026/bracket/">Playoff Bracket</a></li><li><a href="/simulation/2026/season/">Season Simulation</a></li></ul></details><details class="hr-menu"><summary>Leaderboards</summary><ul><li><a href="/leaderboards/2026/player/passing/">Player Stats</a></li><li><a href="/leaderboards/2026/team/overall/">Team Stats</a></li></ul></details><details class="hr-menu"><summary>Awards</summary><ul><li><a href="/awards/2026/team-of-the-week/">Team of the Week</a></li><li><a href="/awards/2025/">All-Americans</a></li><li><a href="/awards/2025/region-1/">Region 1</a></li><li><a href="/awards/2025/region-2/">Region 2</a></li><li><a href="/awards/2025/region-3/">Region 3</a></li><li><a href="/awards/2025/region-4/">Region 4</a></li><li><a href="/awards/2025/region-5/">Region 5</a></li><li><a href="/awards/2025/region-6/">Region 6</a></li></ul></details><a class="hr-menu-link" href="/teams/2026/">Teams</a><details class="hr-menu"><summary>Preseason</summary><ul><li><a href="/previews/2026/">Conference Previews</a></li><li><a href="/returning-production/2026/">Returning Production</a></li></ul></details><details class="hr-menu"><summary>About</summary><ul><li><a href="/ratings-explained/">Ratings Explanation</a></li><li><a href="/glossary/">Glossary</a></li></ul></details><a class="hr-support" href="https://buymeacoffee.com/HansenRatings" target="_blank" rel="noopener">Support</a></nav>
+</header>
+<div class="hr-page">
+  <div class="hr-title">
+    <h1>DIII Football Playoff Simulation</h1>
+    <p class="hr-lead">Updated for games played through 11/14/2026</p>
+    <nav class="hr-switch" aria-label="View"><span class="hr-switch-label">View</span><a href="/simulation/2026/">Summary</a><a aria-current="page">Interactive</a><a href="/simulation/2026/season/">Season Simulation</a></nav>
+  </div>
+  <main class="hr-main">
+<style>
+.hr-bracket { overflow-x: auto; padding: 4px 0 24px; }
+.hr-bracket svg { display: block; margin: 0 auto; font-family: "Raleway", "Segoe UI", system-ui, sans-serif; }
+.hr-bracket .base { fill: none; stroke: #C9C3BA; stroke-width: 1.25; }
+.hr-bracket .hdr { font-size: 11px; font-weight: 600; fill: var(--ink-2, #54606F); letter-spacing: .02em; }
+.hr-bracket .team { cursor: pointer; outline: none; }
+.hr-bracket .team text { fill: var(--ink, #1E2A3A); paint-order: stroke; stroke: #FFFFFF; stroke-width: 3px; stroke-linejoin: round; }
+.hr-bracket .team .nm { font-size: 12.5px; }
+.hr-bracket .team .mid { font-size: 11px; }
+.hr-bracket .team .sd { fill: var(--ink-2, #54606F); font-size: 10.5px; }
+.hr-bracket .team.out text, .hr-bracket .team.out .sd { fill: #A7AEB6; }
+.hr-bracket .team.hot text { font-weight: 700; }
+.hr-bracket .leg { fill: none; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.hr-bracket .odds { font-size: 11px; font-weight: 700; pointer-events: none;
+                    paint-order: stroke; stroke: #FFFFFF; stroke-width: 3px; stroke-linejoin: round; }
+</style>
+<div class="hr-bracket" id="hr-bracket"></div>
+<script>
+(function () {
+  var D = {"teams":[{"slot":1,"seed":1,"name":"UW-Whitewater","color":"#512884","p":[1,0.9964,0.887,0.6403,0.5395,0.3345]},{"slot":2,"seed":2,"name":"Cortland","color":"#B00B00","p":[1,0.9568,0.8356,0.564,0.1964,0.0587]},{"slot":4,"seed":3,"name":"Wheaton Ill.","color":"#002856","p":[1,0.8929,0.5978,0.337,0.0826,0.0333]},{"slot":3,"seed":4,"name":"Baldwin Wallace","color":"#2D201A","p":[1,0.7651,0.6156,0.183,0.1074,0.034]},{"slot":7,"seed":5,"name":"Endicott","color":"#008065","p":[1,0.788,0.6571,0.3019,0.0848,0.0243]},{"slot":5,"seed":6,"name":"Washington U.","color":"#BA0C2F","p":[1,0.5652,0.3455,0.1861,0.0392,0.0146]},{"slot":8,"seed":7,"name":"St. John's","color":"#AF2534","p":[1,0.9709,0.4585,0.1319,0.0883,0.0426]},{"slot":6,"seed":8,"name":"Calvin","color":"#6A1E2A","p":[1,0.4688,0.0793,0.0404,0.018,0.0038]},{"slot":11,"seed":9,"name":"UW-Platteville","color":"#F58113","p":[1,0.9235,0.7929,0.6634,0.5255,0.3082]},{"slot":14,"seed":10,"name":"Utica","color":"#0A2240","p":[1,0.707,0.1975,0.0195,0.0077,0.0013]},{"slot":12,"seed":11,"name":"Concordia Wis.","color":"#245799","p":[1,0.0437,0.0013,0.0001,0,0]},{"slot":10,"seed":12,"name":"Springfield","color":"#862633","p":[1,0.5938,0.1336,0.0318,0.003,0.0005]},{"slot":9,"seed":13,"name":"North Central Ill.","color":"#B60016","p":[1,0.9059,0.5174,0.1946,0.1459,0.0862]},{"slot":15,"seed":14,"name":"Merchant Marine","color":"#394E86","p":[1,0.3568,0.0353,0.0075,0.0003,0.0001]},{"slot":24,"seed":15,"name":"DePauw","color":"#231F20","p":[1,0.0941,0.0229,0.003,0.0013,0.0003]},{"slot":16,"seed":16,"name":"Mary Hardin-Baylor","color":"#5F249F","p":[1,0.6218,0.0745,0.0201,0.011,0.005]},{"slot":13,"seed":17,"name":"Washington and Jefferson","color":"#AA3239","p":[1,0.7438,0.3011,0.1408,0.0262,0.0101]},{"slot":19,"seed":18,"name":"Dickinson","color":"#ED1C2F","p":[1,0.293,0.0624,0.0041,0.0013,0.0001]},{"slot":22,"seed":19,"name":"Hope","color":"#F46A1F","p":[1,0.0765,0.0423,0.022,0.0102,0.003]},{"slot":20,"seed":20,"name":"Christopher Newport","color":"#025CAB","p":[1,0.2562,0.0712,0.0245,0.0023,0.0005]},{"slot":27,"seed":21,"name":"Hardin-Simmons","color":"#581483","p":[0.9424,0.5225,0.0853,0.0506,0.0281,0.0092]},{"slot":21,"seed":22,"name":"Linfield","color":"#D01146","p":[1,0.9563,0.4407,0.2007,0.0359,0.0141]},{"slot":18,"seed":23,"name":"Hampden-Sydney","color":"#8D2634","p":[1,0.6432,0.1142,0.0364,0.0032,0.0005]},{"slot":23,"seed":24,"name":"Wesleyan","color":"#010101","p":[1,0.4062,0.083,0.0174,0.0009,0.0002]},{"slot":17,"seed":25,"name":"Trinity Texas","color":"#8C2129","p":[1,0.3782,0.0383,0.0101,0.0047,0.0027]},{"slot":26,"seed":26,"name":"Trinity Conn.","color":"#073668","p":[0.402,0.0578,0.0302,0.0067,0.0006,0.0001]},{"slot":31,"seed":27,"name":"Amherst","color":"#623393","p":[0.9309,0.0432,0.0149,0.004,0.0005,0]},{"slot":30,"seed":28,"name":"Susquehanna","color":"#6D1B31","p":[0.8751,0.2258,0.122,0.017,0.0077,0.0015]},{"slot":25,"seed":29,"name":"Benedictine","color":"#2A2626","p":[0.307,0.0043,0,0,0,0]},{"slot":29,"seed":30,"name":"Heidelberg","color":"#090606","p":[0.6174,0.0722,0.0201,0.0046,0.0001,0]},{"slot":38,"seed":31,"name":"Texas Lutheran","color":"#070706","p":[0.0576,0.0087,0.0002,0,0,0]},{"slot":34,"seed":32,"name":"Bridgewater State","color":"#040202","p":[0.0691,0,0,0,0,0]},{"slot":28,"seed":33,"name":"Wartburg","color":"#FF671F","p":[0.9983,0.4346,0.2125,0.1049,0.0229,0.0097]},{"slot":35,"seed":34,"name":"Eastern","color":"#702738","p":[0.1249,0.0091,0.0025,0,0,0]},{"slot":39,"seed":35,"name":"RPI","color":"#EB2E24","p":[0.598,0.1542,0.0961,0.0303,0.0044,0.0008]},{"slot":36,"seed":36,"name":"Monmouth","color":"#D3282F","p":[0.3826,0.0349,0.0098,0.0013,0.0001,0.0001]},{"slot":32,"seed":37,"name":"Claremont-Mudd-Scripps","color":"#8D2231","p":[0.6879,0.003,0.0002,0,0,0]},{"slot":33,"seed":38,"name":"Huntingdon","color":"#DC0123","p":[0.3121,0.0006,0,0,0,0]},{"slot":40,"seed":39,"name":"Hanover","color":"#C4122E","p":[0.693,0.0248,0.0012,0,0,0]},{"slot":37,"seed":40,"name":"Northwestern Minn.","color":"#352049","p":[0.0017,0.0002,0,0,0,0]}]};
+  var NS = "http://www.w3.org/2000/svg";
+
+  // ---- the bracket, as the simulation pairs it ----
+  function leaf(s) { return { leaf: true, slot: s }; }
+  function game(id, round, a, b) { var g = { id: id, round: round, kids: [a, b] }; a.up = g; b.up = g; return g; }
+  var FR = {}, R2 = {}, R3 = {}, R4 = {}, i;
+  for (i = 1; i <= 8; i++) FR[i] = game("FR" + i, 1, leaf(24 + i), leaf(41 - i));
+  for (i = 1; i <= 16; i++) R2[i] = game("R2G" + i, 2, leaf(i), i <= 8 ? FR[9 - i] : leaf(33 - i));
+  for (i = 17; i <= 24; i++) R3[i] = game("R3G" + i, 3, R2[i - 16], R2[33 - i]);
+  for (i = 25; i <= 28; i++) R4[i] = game("R4G" + i, 4, R3[i - 8], R3[49 - i]);
+  var S1 = game("R5G29", 5, R4[25], R4[28]), S2 = game("R5G30", 5, R4[26], R4[27]);
+  var F = game("F", 6, S1, S2);
+
+  // ---- layout: two halves meeting at the final ----
+  // Every team name sits ON its line: a team starts on a line from the outer
+  // edge to its first game, and each game it wins puts it on the next line in.
+  // nameW: the first line, long enough for the longest name; colW: each line
+  // after; gap: the lines into the final.
+  var rowH = 28, top = 34, nameW = 196, colW = 112, gap = 100;
+  var half = nameW + 4 * colW, W = 2 * (half + gap), leaves = { L: [], R: [] };
+  function walk(n, side) { n.side = side; if (n.leaf) { leaves[side].push(n); return; } n.kids.forEach(function (k) { walk(k, side); }); }
+  walk(S1, "L"); walk(S2, "R"); F.side = "C";
+  function X(n) {
+    if (n === F) return W / 2;
+    var x = n.leaf ? 0 : nameW + (n.round - 1) * colW;
+    return n.side === "R" ? W - x : x;
+  }
+  ["L", "R"].forEach(function (s) { leaves[s].forEach(function (l, r) { l.y = top + r * rowH + rowH * 0.7; }); });
+  function setY(n) { if (n.leaf) return n.y; n.y = (setY(n.kids[0]) + setY(n.kids[1])) / 2; return n.y; }
+  setY(F);
+  var champLen = 74, H = Math.max(top + leaves.L.length * rowH + 16, F.y + champLen + 40);
+
+  var svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("width", W); svg.setAttribute("height", H); svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("role", "img"); svg.setAttribute("aria-label", "Playoff bracket");
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var a in attrs) e.setAttribute(a, attrs[a]);
+    (parent || svg).appendChild(e); return e;
+  }
+
+  // round headers, over the lines each round is played from
+  var HDR = ["First Round", "Second Round", "Third Round", "Quarterfinals", "Semifinals"];
+  for (var r = 1; r <= 5; r++) {
+    var a0 = r === 1 ? 0 : nameW + (r - 2) * colW, a1 = nameW + (r - 1) * colW, c = (a0 + a1) / 2;
+    [c, W - c].forEach(function (x) {
+      var t = el("text", { x: x, y: 14, "text-anchor": "middle", "class": "hdr" }); t.textContent = HDR[r - 1];
+    });
+  }
+  var ft = el("text", { x: W / 2, y: 14, "text-anchor": "middle", "class": "hdr" }); ft.textContent = "Final";
+
+  // base lines: each game a "]" from its two entrants
+  var base = el("g", { "class": "base" });
+  function drawGame(n) {
+    if (n.leaf) return;
+    var x = X(n);
+    n.kids.forEach(function (k) { el("path", { d: "M" + X(k) + "," + k.y + "H" + x }, base); drawGame(k); });
+    el("path", { d: "M" + x + "," + n.kids[0].y + "V" + n.kids[1].y }, base);
+  }
+  drawGame(F);
+  el("path", { d: "M" + W / 2 + "," + F.y + "V" + (F.y + champLen) }, base);
+
+  // ---- each team: its chain of games and the odds of reaching each ----
+  var allLeaves = leaves.L.concat(leaves.R);
+  // reach(team, game): playing in it. R40W% is reaching round 2, and so on.
+  function reach(t, n) { return n.round === 1 ? 1 : t.p[n.round - 2]; }
+  // win(team, game): getting through it -- reaching the next game, or the title.
+  function win(t, n) { return n.up ? reach(t, n.up) : t.p[5]; }
+  var won = {};   // game id -> the team that has won it (its next game is certain)
+  D.teams.forEach(function (t) {
+    var l = allLeaves.filter(function (x) { return x.slot === t.slot; })[0], c = [l], n = l;
+    while (n.up) { n = n.up; c.push(n); }
+    t.chain = c;
+    c.forEach(function (g) { if (!g.leaf && win(t, g) >= 1) won[g.id] = t; });
+  });
+  D.teams.forEach(function (t) {
+    t.out = t.chain.some(function (g) { return !g.leaf && won[g.id] && won[g.id] !== t; });
+  });
+
+  // ---- the highlighted path, and its odds ----
+  var legs = el("g", {}), odds = el("g", {});
+  function width(p) { return p <= 0 ? 0 : 2 + 11 * p; }
+  function pct(p) {
+    var r = Math.round(p * 100);
+    return r <= 0 ? "<1%" : r >= 100 ? ">99%" : r + "%";
+  }
+  function clear() { [legs, odds].forEach(function (g) { while (g.firstChild) g.removeChild(g.firstChild); });
+                     svg.querySelectorAll(".team.hot").forEach(function (x) { x.classList.remove("hot"); }); }
+  function show(t) {
+    clear();
+    (groups[t.slot] || []).forEach(function (g) { g.classList.add("hot"); });
+    var c = t.chain;
+    for (var j = 1; j < c.length; j++) {
+      var a = c[j - 1], b = c[j], w = width(reach(t, b));
+      if (!w) break;
+      el("path", { d: "M" + X(a) + "," + a.y + "H" + X(b) + "V" + b.y, "class": "leg",
+                   stroke: t.color, "stroke-width": w, "stroke-opacity": 0.9 }, legs);
+      // the odds of getting through this game, under the line it leads to --
+      // only for games still to be played (a played one shows its winner)
+      if (reach(t, b) > 0 && !won[b.id]) {
+        var p = win(t, b), left = b.side === "L" || (b === F && c[1].side === "L");
+        var o = b === F
+          ? el("text", { x: W / 2 + 10, y: F.y + champLen / 2 + 4, "class": "odds", fill: t.color }, odds)
+          : el("text", { x: X(b) + (left ? 11 : -11), y: b.y + 19, "text-anchor": left ? "start" : "end",
+                         "class": "odds", fill: t.color }, odds);
+        o.textContent = pct(p);
+      }
+    }
+    var wc = width(t.p[5]);
+    if (wc && reach(t, F) > 0)
+      el("path", { d: "M" + W / 2 + "," + F.y + "V" + (F.y + champLen), "class": "leg",
+                   stroke: t.color, "stroke-width": wc, "stroke-opacity": 0.9 }, legs);
+  }
+
+  // ---- names on their lines; every one of them hovers and taps ----
+  var groups = {}, on = null;
+  function bind(g, t) {
+    (groups[t.slot] = groups[t.slot] || []).push(g);
+    g.addEventListener("mouseenter", function () { show(t); });
+    g.addEventListener("mouseleave", function () { on ? show(on) : clear(); });
+    g.addEventListener("focus", function () { show(t); });
+    g.addEventListener("blur", function () { on ? show(on) : clear(); });
+    g.addEventListener("click", function () { if (on === t) { on = null; clear(); } else { on = t; show(t); } });
+  }
+  // a name on the line from x0 to x1 at height y
+  function label(t, x0, x1, y, cls, withSeed) {
+    var left = x1 > x0, g = el("g", { "class": "team" + (t.out ? " out" : ""), tabindex: 0, role: "button",
+                                      "aria-label": t.seed + " " + t.name });
+    el("rect", { x: Math.min(x0, x1), y: y - rowH + 6, width: Math.abs(x1 - x0), height: rowH - 2, fill: "transparent" }, g);
+    var tx = el("text", { x: x0 + (left ? 6 : -6), y: y - 9, "text-anchor": left ? "start" : "end" }, g);
+    if (withSeed) { var sd = el("tspan", { "class": "sd" }, tx); sd.textContent = t.seed + "  "; }
+    var nm = el("tspan", { "class": cls }, tx); nm.textContent = t.name;
+    bind(g, t);
+  }
+  D.teams.forEach(function (t) {
+    var l = t.chain[0];
+    label(t, X(l), X(t.chain[1]), l.y, "nm", true);                     // its first line, from the edge
+    t.chain.forEach(function (n) {                                       // each game it has won
+      if (n.leaf || won[n.id] !== t) return;
+      if (!n.up) {
+        var ch = el("text", { x: W / 2, y: F.y + champLen + 20, "text-anchor": "middle" });
+        ch.setAttribute("style", "font-size:15px;font-weight:700;fill:" + t.color); ch.textContent = t.name;
+        return;
+      }
+      label(t, X(n), X(n.up), n.y, "mid", false);
+    });
+  });
+
+  document.getElementById("hr-bracket").appendChild(svg);
+})();
+</script>
+  </main>
+  <footer class="hr-foot">
+    <span>&copy; Hansen Ratings</span>
+  </footer>
+</div>
+<script>
+// One dropdown open at a time. The others close on pointerdown -- BEFORE the
+// click toggles the new one -- so there is never a frame with two open, which
+// read as a flicker when switching menus. Everything else about the menu is CSS.
+(function () {
+  var all = function () { return document.querySelectorAll(".hr-nav details[open]"); };
+  document.querySelectorAll(".hr-nav details > summary").forEach(function (s) {
+    s.addEventListener("pointerdown", function () {
+      all().forEach(function (o) { if (o !== s.parentNode) o.removeAttribute("open"); });
+    });
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".hr-nav")) return;
+    all().forEach(function (o) { o.removeAttribute("open"); });
+  });
+})();
+// Switcher rows (Stat, Week, Conference ...). When the links no longer fit on
+// one line, the row becomes a dropdown: same items, current one selected,
+// choosing navigates. Re-checked on resize, measuring the links each time.
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll(".hr-switch"));
+  rows.forEach(function (nav) {
+    var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+    if (links.length < 2) return;
+    var sel = document.createElement("select");
+    sel.className = "hr-switch-select";
+    sel.setAttribute("aria-label", nav.getAttribute("aria-label") || "");
+    links.forEach(function (a) {
+      var o = document.createElement("option");
+      o.textContent = a.textContent; o.value = a.getAttribute("href") || "";
+      if (a.hasAttribute("aria-current")) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener("change", function () { if (sel.value) location.href = sel.value; });
+    nav.appendChild(sel);
+    nav._links = links;
+  });
+  var pending = false;
+  function fit() {
+    pending = false;
+    rows.forEach(function (nav) {
+      if (!nav._links) return;
+      nav.classList.remove("hr-switch-menu");
+      var top = nav._links[0].offsetTop;
+      if (nav._links.some(function (a) { return a.offsetTop > top; })) nav.classList.add("hr-switch-menu");
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fit); } }
+  window.addEventListener("resize", queue);
+  fit();
+})();
+// Column headers never break inside a word. reactable lets a header wrap
+// anywhere (overflow-wrap: break-word), so "AdjEff" in a 60px column came
+// out as "AdjEf / f". The stylesheet now breaks only at spaces, and this
+// widens any column whose header's longest word still would not fit -- every
+// cell in the column, plus the group header above it by the same amount.
+// Idempotent, and re-run whenever reactable re-renders (a sort resets the
+// inline widths), through the same observer as the sticky fix below.
+(function () {
+  var ctx = document.createElement("canvas").getContext("2d");
+  function need(th) {
+    var inner = th.querySelector(".rt-th-inner") || th, s = getComputedStyle(inner), w = 0;
+    ctx.font = s.font;
+    var text = (inner.textContent || "").trim();
+    // a header styled nowrap (the leaderboards) needs its whole text on one line
+    var parts = /^(nowrap|pre)$/.test(getComputedStyle(th).whiteSpace) ? [text] : text.split(/\s+/);
+    parts.forEach(function (t) { w = Math.max(w, ctx.measureText(t).width); });
+    if (th.querySelector(".rt-sort-left, .rt-sort-right")) w += 14;
+    return Math.ceil(w + parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) + 2);
+  }
+  function cur(c) { return parseFloat(c.style.minWidth) || c.getBoundingClientRect().width; }
+  function grow(c, d) { var w = cur(c) + d; c.style.minWidth = w + "px"; c.style.width = w + "px"; }
+  // reactable gives every row, and the head and body wrappers, an inline
+  // min-width equal to the sum of its columns. Growing the cells without
+  // growing that left them overhanging their own row, and the hover and
+  // stripe colours paint the ROW -- so on a table scrolled to its right edge
+  // the last column showed a blank strip as wide as the growth (26px on Pass
+  // Offense, 2026-10-04, Logan). This resyncs each row to its cells.
+  //
+  // Declared widths, not rendered ones: cells flex-grow to fill a wide window,
+  // so a rendered sum would pin rows at the wide width and stop them shrinking
+  // when the window narrows. And it only ever RAISES a min-width, so it can
+  // fix an overhang but never shrink anything reactable laid out itself.
+  function base(c) { return parseFloat(c.style.width) || parseFloat(c.style.minWidth) || 0; }
+  function syncRows(table) {
+    var widest = 0;
+    table.querySelectorAll(".rt-tr").forEach(function (tr) {
+      var w = 0, ok = tr.children.length > 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        var b = base(c); if (!b) ok = false; w += b;
+      });
+      if (!ok) return;   // a row with an unsized cell is not one reactable sized
+      w = Math.ceil(w);
+      if (w > (parseFloat(tr.style.minWidth) || 0)) tr.style.minWidth = w + "px";
+      if (w > widest) widest = w;
+    });
+    if (widest) table.querySelectorAll(".rt-thead, .rt-tbody").forEach(function (s) {
+      if (widest > (parseFloat(s.style.minWidth) || 0)) s.style.minWidth = widest + "px";
+    });
+  }
+  window.hrFitHeaders = function () {
+    document.querySelectorAll(".hr-main .rt-table").forEach(function (table) {
+      var hdr = table.querySelector(".rt-tr-header"); if (!hdr) return;
+      var delta = Array.prototype.map.call(hdr.children, function (th) {
+        var d = need(th) - cur(th); return d > 0 ? d : 0;
+      });
+      if (!delta.some(function (d) { return d; })) return;
+      table.querySelectorAll(".rt-tr-header, .rt-tr-filters, .rt-tbody .rt-tr").forEach(function (tr) {
+        Array.prototype.forEach.call(tr.children, function (c, i) { if (delta[i]) grow(c, delta[i]); });
+      });
+      var g = table.querySelector(".rt-tr-group-header"), i = 0;
+      if (g) Array.prototype.forEach.call(g.children, function (c) {
+        var span = parseInt(c.getAttribute("aria-colspan") || "1", 10), d = 0;
+        for (var k = 0; k < span; k++) d += delta[i + k] || 0;
+        i += span;
+        if (d) grow(c, d);
+      });
+      syncRows(table);
+    });
+  };
+})();
+// Sticky columns. reactable writes each sticky cell's `left` inline from the
+// column's configured width, but the phone stylesheet caps wide sticky columns
+// at 140px, so the second sticky column would pin 60px short of the first.
+// Re-derive every left offset from the widths actually rendered, whenever the
+// table (re)renders or the viewport changes.
+(function () {
+  var pending = false;
+  // Rendered widths are fractional (a 62.5px Rank column is common), and
+  // offsetWidth rounds, so read the computed width instead. It is unzoomed,
+  // like `left`, unlike getBoundingClientRect.
+  function width(c) {
+    var s = getComputedStyle(c), w = parseFloat(s.width);
+    if (s.boxSizing !== "border-box")
+      w += parseFloat(s.paddingLeft) + parseFloat(s.paddingRight) +
+           parseFloat(s.borderLeftWidth) + parseFloat(s.borderRightWidth);
+    return w;
+  }
+  // Each sticky cell is composited as its own layer, and where two layers meet
+  // at a fractional device pixel their edges can snap apart, showing a hairline
+  // of whatever scrolled underneath. So the second sticky cell onward starts
+  // 1px inside its predecessor: the cells have opaque backgrounds and no side
+  // borders, so the overlap is invisible and there is no seam to snap.
+  function fix() {
+    pending = false;
+    if (window.hrFitHeaders) window.hrFitHeaders();   // widths first, then the offsets
+    document.querySelectorAll(".hr-main .rt-tr").forEach(function (tr) {
+      var x = 0, n = 0;
+      Array.prototype.forEach.call(tr.children, function (c) {
+        if (!c.classList.contains("rt-sticky") || !c.style.left) return;
+        var want = (n ? x - 1 : 0) + "px";
+        if (c.style.left !== want) c.style.left = want;
+        x += width(c); n++;
+      });
+    });
+  }
+  function queue() { if (!pending) { pending = true; requestAnimationFrame(fix); } }
+  var w = document.querySelector(".hr-main");
+  if (!w || !("MutationObserver" in window)) return;
+  new MutationObserver(queue).observe(w, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
+  window.addEventListener("resize", queue);
+  window.addEventListener("load", queue);
+  queue();
+})();
+</script>
+</body>
+</html>
+
