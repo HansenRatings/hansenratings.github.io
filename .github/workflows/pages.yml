@@ -30,12 +30,31 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.try1.outputs.page_url || steps.try2.outputs.page_url || steps.try3.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
-      - id: deployment
+      # GitHub can take a while to list an artifact it has just stored, and
+      # deploy-pages fails at once when it is not listed yet ("No artifacts
+      # named github-pages", actions/deploy-pages issue 451, 2026-11-24). Wait,
+      # then try up to three times; the third failure fails the run. The waits
+      # stay here, after the one upload: re-running the job would upload a
+      # second artifact under the same name, which deploy-pages refuses.
+      - run: sleep 20
+      - id: try1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - if: steps.try1.outcome == 'failure'
+        run: sleep 60
+      - id: try2
+        if: steps.try1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - if: steps.try2.outcome == 'failure'
+        run: sleep 180
+      - id: try3
+        if: steps.try2.outcome == 'failure'
         uses: actions/deploy-pages@v4
